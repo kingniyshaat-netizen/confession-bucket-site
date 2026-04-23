@@ -1,420 +1,366 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Confession Bucket | Where Truth Ignites Legacy</title>
-  <meta name="description" content="Confession Bucket is a transformative platform for healing, connection, ritual, empathy, and ancestral empowerment." />
+  <title>Konfession Bucket | Adult Confessions, Advice, Support & Real Conversation</title>
+  <meta name="description" content="Konfession Bucket is an adult conversation website where people can post anonymous or non-anonymous confessions, connect through 29 subject avenues, and respond with advice, ideas, support, and shared experiences." />
   <style>
     :root{
-      --bg:#0b0908;--bg-2:#13100f;--panel:#171311;--panel-2:#211a17;--line:rgba(255,255,255,.10);
-      --text:#f6efe5;--muted:#c6b9aa;--soft:#9f8f7d;--ember:#ffb15c;--ember-2:#ff7a18;--gold:#e3b163;
-      --green:#53c781;--red:#ff7e7e;--shadow:0 18px 44px rgba(0,0,0,.35);--radius:24px;--radius-sm:16px;--max:1220px;
+      --bg:#090807;
+      --bg2:#110e0d;
+      --panel:#171210;
+      --panel2:#201915;
+      --line:rgba(255,255,255,.10);
+      --text:#f7f0e8;
+      --muted:#c9bbab;
+      --soft:#9f8f7d;
+      --ember:#ffb15c;
+      --ember2:#ff7a18;
+      --gold:#e3b163;
+      --gold2:#f1cf9a;
+      --green:#53c781;
+      --radius:24px;
+      --shadow:0 18px 44px rgba(0,0,0,.35);
+      --max:1260px;
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
-      margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(1000px 500px at 15% 0%, rgba(255,122,24,.16), transparent 45%),
-        radial-gradient(900px 460px at 90% 10%, rgba(227,177,99,.12), transparent 45%),
-        linear-gradient(180deg, #0c0908 0%, #0e0b0a 28%, #0b0908 100%);
-      color:var(--text);line-height:1.55;
+        radial-gradient(900px 460px at 10% 0%, rgba(255,122,24,.18), transparent 45%),
+        radial-gradient(900px 460px at 100% 12%, rgba(227,177,99,.12), transparent 48%),
+        linear-gradient(180deg,#0a0807 0%,#0c0a09 32%,#090807 100%);
+      line-height:1.55;
     }
-    a{color:inherit;text-decoration:none} img{max-width:100%}
+    a{text-decoration:none;color:inherit}
     .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
-    .topbar{position:sticky;top:0;z-index:50;backdrop-filter: blur(16px);background:rgba(11,9,8,.84);border-bottom:1px solid var(--line)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:74px}
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(9,8,7,.88);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:14px}
-    .mark{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold),var(--ember-2));color:#2a1608;font-size:24px;font-weight:900;box-shadow:0 10px 26px rgba(255,122,24,.22)}
-    .brand h1{margin:0;font-size:1rem;line-height:1.1}
-    .brand p{margin:2px 0 0;color:var(--soft);font-size:.83rem;letter-spacing:.12em;text-transform:uppercase}
+    .mark{
+      width:52px;height:52px;border-radius:18px;display:grid;place-items:center;
+      background:linear-gradient(145deg,var(--gold),var(--ember2));
+      color:#2c1708;font-size:26px;font-weight:900;
+      box-shadow:0 10px 26px rgba(255,122,24,.24);
+    }
+    .brand p{margin:0;color:var(--soft);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+    .brand h1{margin:3px 0 0;font-size:1rem;line-height:1.1}
     .navlinks{display:flex;gap:18px;flex-wrap:wrap}
-    .navlinks a{color:var(--muted);font-size:.95rem}.navlinks a:hover{color:#fff}
+    .navlinks a{color:var(--muted);font-size:.95rem}
+    .navlinks a:hover{color:#fff}
     .cta-row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer;font-weight:700;transition:.2s ease}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);color:var(--text);font-weight:800;cursor:pointer;
+      transition:.2s ease;
+    }
     .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.07)}
-    .btn.primary{background:linear-gradient(135deg,var(--gold),var(--ember));color:#2d1707;border:none;box-shadow:0 12px 28px rgba(255,122,24,.18)}
-    .hero{padding:74px 0 44px;border-bottom:1px solid var(--line)}
-    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;border:1px solid rgba(227,177,99,.25);background:rgba(227,177,99,.08);color:#f3cb92;font-size:.88rem;font-weight:700;margin-bottom:18px}
-    h2.hero-title{margin:0;font-size:clamp(2.5rem, 5vw, 5rem);line-height:.98;letter-spacing:-.04em}
-    .hero-title .accent{color:#ffd3a0}
-    .hero-copy{color:var(--muted);font-size:1.08rem;max-width:760px;margin:18px 0 24px}
-    .hero-card,.panel{background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .btn.primary{
+      background:linear-gradient(135deg,var(--gold),var(--ember));
+      color:#2d1707;border:none;box-shadow:0 12px 28px rgba(255,122,24,.20);
+    }
+    .hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:28px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
+      border:1px solid rgba(227,177,99,.25);background:rgba(227,177,99,.08);color:var(--gold2);
+      font-size:.88rem;font-weight:800;margin-bottom:18px;
+    }
+    .hero-title{margin:0;font-size:clamp(2.8rem,5vw,5.2rem);line-height:.96;letter-spacing:-.05em}
+    .accent{color:#ffd8ac}
+    .hero-copy{font-size:1.08rem;color:var(--muted);max-width:760px;margin:18px 0 24px}
+    .quote-band{
+      margin-top:18px;padding:16px 18px;border-radius:18px;border:1px solid rgba(227,177,99,.16);
+      background:rgba(227,177,99,.06);color:#ecd6b2;font-size:.98rem;
+    }
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+    }
     .hero-card{padding:20px}
-    .windowbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px;color:var(--soft);font-size:.82rem}
+    .windowbar{display:flex;justify-content:space-between;align-items:center;color:var(--soft);font-size:.82rem;margin-bottom:16px}
     .dots{display:flex;gap:8px}.dot{width:11px;height:11px;border-radius:999px}
-    .dot.red{background:#f87171}.dot.yellow{background:#fbbf24}.dot.green{background:#4ade80}
-    .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
-    .stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:20px;padding:16px}
-    .stat .k{font-size:1.55rem;font-weight:800;margin:6px 0}.stat .l{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)} .stat .s{font-size:.88rem;color:#aef2c7}
-    .section{padding:76px 0}.section-head{max-width:880px;margin-bottom:28px}
-    .kicker{display:inline-block;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:#ebcc9f;font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;font-weight:800;margin-bottom:16px}
-    .section h3{margin:0 0 12px;font-size:clamp(2rem, 4vw, 3.4rem);line-height:1.04;letter-spacing:-.03em}
-    .section p.lead{margin:0;color:var(--muted);font-size:1.04rem;max-width:860px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .red{background:#f87171}.yellow{background:#fbbf24}.green{background:#4ade80}
+    .hero-list{display:grid;gap:12px}
+    .hero-item{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .hero-item strong{display:block;margin-bottom:4px}
+    .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+    .mini-stat{padding:15px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .mini-stat .l{font-size:.78rem;color:var(--soft);letter-spacing:.14em;text-transform:uppercase}
+    .mini-stat .v{font-size:1.22rem;font-weight:900;margin-top:5px}
+    .section{padding:82px 0}
+    .section-head{max-width:920px;margin-bottom:30px}
+    .kicker{
+      display:inline-block;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.04);
+      border:1px solid var(--line);color:#ebcc9f;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;
+      font-weight:900;margin-bottom:16px;
+    }
+    .section h2{margin:0 0 12px;font-size:clamp(2rem,4vw,3.5rem);line-height:1.04;letter-spacing:-.03em}
+    .lead{margin:0;color:var(--muted);font-size:1.04rem;max-width:860px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .card{padding:22px}
-    .icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:rgba(255,177,92,.12);border:1px solid rgba(255,177,92,.15);color:#ffd29f;font-size:1.2rem;margin-bottom:14px}
-    .card h4{margin:0 0 8px;font-size:1.1rem}.card p{margin:0;color:var(--muted)}
-    .loop{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}
-    .loop-step,.mini{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:18px;padding:18px}
-    .loop-step .n{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;color:#f0c78d;margin-bottom:10px}
+    .icon{
+      width:48px;height:48px;border-radius:16px;display:grid;place-items:center;
+      background:rgba(255,177,92,.12);border:1px solid rgba(255,177,92,.15);color:#ffd29f;
+      font-size:1.2rem;margin-bottom:14px;
+    }
+    h3{margin:0 0 8px;font-size:1.12rem}
+    p{margin:0}
+    .muted{color:var(--muted)}
     .subtle{color:var(--soft)}
-    .score-box{background:linear-gradient(135deg, rgba(255,177,92,.12), rgba(255,122,24,.10));border:1px solid rgba(255,177,92,.15);border-radius:22px;padding:18px}
-    .score-row{margin:14px 0}
-    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
-    .fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--ember-2));border-radius:999px}
-    .badge-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-    .badge-tile{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center}
-    .badge-chip{display:inline-flex;padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:800;background:rgba(227,177,99,.12);color:#ffd29f;border:1px solid rgba(227,177,99,.18);margin-top:10px}
+    .posting-model{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .post-tile{padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .subject-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .subject-card{padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .subject-card span{display:block;font-size:.86rem;color:var(--soft);margin-top:4px}
+    .response-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .response-pill{padding:16px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:center;font-weight:800}
     .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 24px}
-    .tabbtn{border:none;border-radius:999px;padding:11px 15px;font-weight:800;cursor:pointer;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
+    .tabbtn{border:none;border-radius:999px;padding:11px 15px;font-weight:900;cursor:pointer;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
     .tabbtn.active{background:linear-gradient(135deg,var(--gold),var(--ember));color:#2a1608}
     .tabpane{display:none}.tabpane.active{display:block}
-    .table-wrap{overflow:auto;border-radius:22px;border:1px solid var(--line)}
-    table{width:100%;border-collapse:collapse;min-width:700px;background:rgba(255,255,255,.02)}
-    th,td{padding:16px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-    th{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);background:rgba(255,255,255,.03)} td{color:var(--muted)}
-    tr:last-child td{border-bottom:none}
     .faq-item{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
-    .faq-q{width:100%;text-align:left;border:none;background:transparent;color:var(--text);padding:18px 18px;font-size:1rem;font-weight:800;cursor:pointer}
-    .faq-a{display:none;padding:0 18px 18px;color:var(--muted)} .faq-item.open .faq-a{display:block}
-    .notice{padding:16px 18px;border-radius:18px;border:1px solid rgba(255,122,126,.18);background:rgba(255,126,126,.07);color:#ffd1d1;font-size:.95rem}
-    .footer{padding:34px 0 54px;border-top:1px solid var(--line);color:var(--soft)} .footer-grid{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap} .small{font-size:.9rem}
-    .presentation{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    @media (max-width:1080px){.hero-grid,.grid-3,.badge-row,.presentation{grid-template-columns:1fr 1fr}.loop{grid-template-columns:repeat(3,1fr)}.statgrid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:760px){.nav{padding:12px 0}.navlinks{display:none}.hero{padding-top:50px}.hero-grid,.grid-3,.grid-2,.badge-row,.presentation{grid-template-columns:1fr}.loop{grid-template-columns:1fr 1fr}.statgrid{grid-template-columns:1fr}.cta-row{width:100%}.cta-row .btn{width:100%}h2.hero-title{font-size:2.35rem}}
-    @media (max-width:520px){.loop{grid-template-columns:1fr}}
+    .faq-q{width:100%;text-align:left;border:none;background:transparent;color:var(--text);padding:18px;font-size:1rem;font-weight:900;cursor:pointer}
+    .faq-a{display:none;padding:0 18px 18px;color:var(--muted)}
+    .faq-item.open .faq-a{display:block}
+    .note{padding:16px 18px;border-radius:18px;border:1px solid rgba(255,177,92,.16);background:rgba(255,177,92,.06);color:#ecd6b2}
+    .footer{padding:36px 0 56px;border-top:1px solid var(--line);color:var(--soft)}
+    .footer-grid{display:flex;justify-content:space-between;gap:22px;align-items:flex-start;flex-wrap:wrap}
+    .small{font-size:.92rem}
+    @media (max-width:1100px){.hero-grid,.grid-3,.subject-grid,.response-grid,.posting-model{grid-template-columns:1fr 1fr}}
+    @media (max-width:760px){.navlinks{display:none}.hero{padding-top:54px}.hero-grid,.grid-2,.grid-3,.subject-grid,.response-grid,.posting-model{grid-template-columns:1fr}.cta-row{width:100%}.cta-row .btn{width:100%}}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="wrap nav">
       <div class="brand">
-        <div class="mark">🔥</div>
+        <div class="mark">🪣</div>
         <div>
-          <p>Confession Bucket</p>
-          <h1>Where Truth Ignites Legacy</h1>
+          <p>Adult conversation platform</p>
+          <h1>Konfession Bucket</h1>
         </div>
       </div>
       <nav class="navlinks">
-        <a href="#platform">Platform</a>
-        <a href="#impact">Impact</a>
-        <a href="#partners">Partners</a>
-        <a href="#model">Business Model</a>
-        <a href="#launch">Launch</a>
+        <a href="#about">About</a>
+        <a href="#subjects">29 Avenues</a>
+        <a href="#posting">Posting</a>
+        <a href="#responses">Responses</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="cta-row">
-        <a class="btn" href="#presentation">Presentation</a>
-        <a class="btn primary" href="#platform">Explore Platform</a>
+        <a class="btn" href="#subjects">Browse Avenues</a>
+        <a class="btn primary" href="#posting">Start Here</a>
       </div>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
+  </header>  <main>
+    <section class="hero" id="about">
       <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow">Digital sanctuary • Ritual • Empathy • Legacy</div>
-          <h2 class="hero-title">Confession Bucket:<br><span class="accent">A transformative platform for healing, connection, and ancestral empowerment.</span></h2>
-          <p class="hero-copy">
-            This website is built from your full blueprint as a concept-faithful public-facing deployable shell.
-            It presents Confession Bucket as a digital sanctuary rooted in ritual, empathy, cultural wisdom, community resonance,
-            and long-term legacy building.
-          </p>
+          <div class="eyebrow">Anonymous or non-anonymous • Adult communication • 29 subject avenues</div>
+          <h2 class="hero-title">Say what you need to say.<br><span class="accent">Find the people who get it.</span></h2>
+          <p class="hero-copy">Konfession Bucket is a website designed for adults to express confessions anonymously or non-anonymously, connect through subject-based avenues, and converse with others through advice, ideas, support, and shared relevance. This is not a random social feed. It is a structured conversation platform built around real-life subjects, honesty, and mutual exchange.</p>
           <div class="cta-row">
-            <a class="btn primary" href="#presentation">View Pitch Story</a>
-            <a class="btn" href="#partners">Partner With Us</a>
+            <a class="btn primary" href="#posting">How Posting Works</a>
+            <a class="btn" href="#responses">How People Respond</a>
           </div>
-
-          <div class="statgrid">
-            <div class="stat"><div class="l">Core Promise</div><div class="k">Truth</div><div class="s">Honesty over performance</div></div>
-            <div class="stat"><div class="l">Core Promise</div><div class="k">Ritual</div><div class="s">Reflection with structure</div></div>
-            <div class="stat"><div class="l">Core Promise</div><div class="k">Empathy</div><div class="s">Healing through resonance</div></div>
-            <div class="stat"><div class="l">Core Promise</div><div class="k">Legacy</div><div class="s">Generational impact</div></div>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="windowbar">
-            <div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-            <div>Platform Preview</div>
-          </div>
-
-          <div class="score-box">
-            <div class="subtle">Legacy Score System</div>
-            <div style="font-size:2.4rem;font-weight:800;margin:4px 0 8px">Weighted for healing, not vanity</div>
-            <p class="subtle" style="margin:0 0 10px">Confession Bucket honors vulnerability, empathy, mentorship, journaling, and consistency.</p>
-
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Vulnerability</span><span>Weighted</span></div><div class="bar"><div class="fill" style="width:88%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Empathy Reactions</span><span>Weighted</span></div><div class="bar"><div class="fill" style="width:74%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Journal Practice</span><span>Weighted</span></div><div class="bar"><div class="fill" style="width:67%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Mentorship + Consistency</span><span>Weighted</span></div><div class="bar"><div class="fill" style="width:59%"></div></div></div>
-          </div>
-
-          <div class="grid-2" style="margin-top:16px">
-            <div class="mini"><div class="subtle" style="text-transform:uppercase;letter-spacing:.15em;font-size:.78rem">Onboarding Ritual</div><div style="font-weight:800;font-size:1.05rem;margin:6px 0">Trust before access</div><div class="subtle">Consent checks, reflection prompts, privacy settings, and identity-framing through ritual.</div></div>
-            <div class="mini"><div class="subtle" style="text-transform:uppercase;letter-spacing:.15em;font-size:.78rem">Maze Journal</div><div style="font-weight:800;font-size:1.05rem;margin:6px 0">Depth over noise</div><div class="subtle">A daily prompt system for structured healing tracks, memory, and reflection.</div></div>
-          </div>
-        </div>
+          <div class="quote-band">Adult communication. Honest subjects. Real talk. Anonymous when needed, named when wanted.</div>
+        </div><div class="panel hero-card">
+      <div class="windowbar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><div>Platform Snapshot</div></div>
+      <div class="hero-list">
+        <div class="hero-item"><strong>Anonymous or non-anonymous posting</strong><span class="subtle">Users choose whether they want to speak with privacy or speak openly.</span></div>
+        <div class="hero-item"><strong>29 subject avenues</strong><span class="subtle">Conversations are organized by relevance, interest, and lived experience.</span></div>
+        <div class="hero-item"><strong>Advice, ideas, support, sharing</strong><span class="subtle">Responses are built around helping, relating, and exchanging real perspective.</span></div>
+        <div class="hero-item"><strong>Adult audience</strong><span class="subtle">The tone is mature, direct, and centered on grown conversation.</span></div>
       </div>
-    </section>
-
-    <section class="section" id="platform">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Platform Model</div>
-          <h3>Built to solve the emotional safety gap online.</h3>
-          <p class="lead">Traditional platforms reward image, speed, and spectacle. Confession Bucket is designed as a culturally grounded space where truth can be shared, witnessed, and transformed through ritual, empathy, and action.</p>
-        </div>
-
-        <div class="grid-3">
-          <div class="panel card"><div class="icon">🪶</div><h4>The Problem</h4><p>People are overexposed online and still feel unseen. Vulnerability is often punished, monetized, or turned into performance.</p></div>
-          <div class="panel card"><div class="icon">🔥</div><h4>The Solution</h4><p>Confession Bucket creates a guided flow from onboarding ritual to confession to community resonance, so truth has structure and care.</p></div>
-          <div class="panel card"><div class="icon">🛡️</div><h4>The Differentiator</h4><p>Legacy Score, Maze Journal, healing circles, moderation, and cultural grounding convert platform engagement into meaningful transformation.</p></div>
-        </div>
-
-        <div class="panel card" style="margin-top:18px">
-          <div class="kicker">Core User Journey</div>
-          <div class="loop">
-            <div class="loop-step"><div class="n">01</div><strong>Onboarding Ritual</strong><br><span class="subtle">Consent, reflection, privacy, trust.</span></div>
-            <div class="loop-step"><div class="n">02</div><strong>Confession</strong><br><span class="subtle">Truth-sharing with emotional tone and visibility choices.</span></div>
-            <div class="loop-step"><div class="n">03</div><strong>Community Resonance</strong><br><span class="subtle">Empathy reactions, witnessing, response, support.</span></div>
-            <div class="loop-step"><div class="n">04</div><strong>Maze Journal</strong><br><span class="subtle">Guided reflection across multiple days.</span></div>
-            <div class="loop-step"><div class="n">05</div><strong>Legacy Growth</strong><br><span class="subtle">Badges, mentorship, rituals, and consistency.</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="presentation">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Presentation Story</div>
-          <h3>Pitch-ready website narrative from your deck blueprint.</h3>
-          <p class="lead">Instead of fake vanity stats, this section translates your presentation deck into a real website story suitable for founders, partners, community organizations, donors, and technical collaborators.</p>
-        </div>
-
-        <div class="presentation">
-          <div class="panel card"><h4>Title & Impact</h4><p>Confession Bucket is presented as a digital sanctuary where truth ignites legacy and healing becomes collective rather than isolated.</p></div>
-          <div class="panel card"><h4>The Problem</h4><p>Current social environments reward performance over vulnerability and fail to offer culturally grounded pathways for healing.</p></div>
-          <div class="panel card"><h4>Our Solution</h4><p>Guided onboarding ritual, confession flow, community resonance, Legacy Score, and Maze Journal form the product engine.</p></div>
-          <div class="panel card"><h4>Legacy Score & Badges</h4><p>Healing is reinforced through weighted recognition around courage, empathy, ritual, resonance, and sustained legacy behavior.</p></div>
-          <div class="panel card"><h4>Business Model</h4><p>Free, Flamekeeper, and Legacy Builder tiers combine with tribute gifts, partner relationships, and long-term retention loops.</p></div>
-          <div class="panel card"><h4>Vision</h4><p>The platform scales into curriculum, media, community networks, and diaspora-facing healing infrastructure over time.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="impact">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Legacy Score & Badge System</div>
-          <h3>Game mechanics that drive healing, not empty clout.</h3>
-          <p class="lead">Legacy Score reflects how users show up through vulnerability, empathy, journaling, mentorship, and consistency. The badge system honors courage, resonance, ritual, growth, and legacy.</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="panel card">
-            <h4 style="margin-bottom:14px">Weighted Score Logic</h4>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Vulnerability Depth</span><span>Primary Driver</span></div><div class="bar"><div class="fill" style="width:92%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Empathy Reactions</span><span>Community Driver</span></div><div class="bar"><div class="fill" style="width:82%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Journal Entries</span><span>Reflection Driver</span></div><div class="bar"><div class="fill" style="width:75%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Mentorship Points</span><span>Legacy Driver</span></div><div class="bar"><div class="fill" style="width:66%"></div></div></div>
-            <div class="score-row"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Consistency / Streaks</span><span>Retention Driver</span></div><div class="bar"><div class="fill" style="width:70%"></div></div></div>
-          </div>
-
-          <div class="panel card">
-            <h4 style="margin-bottom:14px">Badge Framework</h4>
-            <div class="badge-row">
-              <div class="badge-tile"><strong>Spark</strong><div class="badge-chip">Courage</div></div>
-              <div class="badge-tile"><strong>Flamekeeper</strong><div class="badge-chip">Trust</div></div>
-              <div class="badge-tile"><strong>Resonant</strong><div class="badge-chip">Empathy</div></div>
-              <div class="badge-tile"><strong>Guide</strong><div class="badge-chip">Mentorship</div></div>
-              <div class="badge-tile"><strong>Legacy Builder</strong><div class="badge-chip">Impact</div></div>
-            </div>
-            <p class="subtle" style="margin-top:16px">Badge thresholds and score values belong to the product logic layer. This website presents the system visually without pretending live metrics exist before launch.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="model">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Business Model & Sustainability</div>
-          <h3>A platform model that supports healing and long-term continuity.</h3>
-          <p class="lead">The platform uses a tiered access structure, tribute gifting, community activations, and strategic partnerships to support sustainability without abandoning mission.</p>
-        </div>
-
-        <div class="grid-3">
-          <div class="panel card"><div class="icon">🕊️</div><h4>Free</h4><p>Entry tier for onboarding ritual, baseline reflection, community orientation, and limited engagement tools.</p></div>
-          <div class="panel card"><div class="icon">🔥</div><h4>Flamekeeper</h4><p>Paid tier for deeper ritual tracks, premium community layers, enhanced access, and increased resonance participation.</p></div>
-          <div class="panel card"><div class="icon">👑</div><h4>Legacy Builder</h4><p>Higher-tier pathway for mentorship, leadership participation, deeper insight tools, and legacy-centered growth experiences.</p></div>
-        </div>
-
-        <div class="grid-2" style="margin-top:18px">
-          <div class="panel card"><h4>Tribute Gifts</h4><p>One-time and recurring contribution pathways can support mission continuity, healing events, and community expansion.</p></div>
-          <div class="panel card"><h4>Retention Logic</h4><p>Ritual cycles, badges, summits, journaling, and partner referrals are designed to strengthen retention through purpose rather than addictive noise.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="partners">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Partner Outreach</div>
-          <h3>Built for schools, justice work, cultural institutions, and community healing partners.</h3>
-          <p class="lead">Confession Bucket is not just a consumer-facing platform. It is designed to support schools, restorative justice programs, cultural institutions, healing arts collectives, and faith-based youth organizations through partnership.</p>
-        </div>
-
-        <div class="tabs">
-          <button class="tabbtn active" data-tab="partners-targets">Target Partners</button>
-          <button class="tabbtn" data-tab="partners-tactics">Outreach Tactics</button>
-          <button class="tabbtn" data-tab="partners-success">Success Metrics</button>
-        </div>
-
-        <div id="partners-targets" class="tabpane active">
-          <div class="grid-3">
-            <div class="panel card"><h4>Urban Schools</h4><p>Especially those with restorative justice programs and a need for culturally grounded student support pathways.</p></div>
-            <div class="panel card"><h4>Justice Diversion Initiatives</h4><p>Local juvenile justice centers and diversion programs seeking healing-centered engagement models.</p></div>
-            <div class="panel card"><h4>Cultural + Faith Organizations</h4><p>Black cultural institutions, healing arts collectives, and faith-based youth groups focused on development and restoration.</p></div>
-          </div>
-        </div>
-
-        <div id="partners-tactics" class="tabpane">
-          <div class="grid-2">
-            <div class="panel card"><h4>Personalized Outreach</h4><p>Use a one-page overview, case studies, impact framing, and MOU starter language. Follow up at 7 and 14 days.</p></div>
-            <div class="panel card"><h4>Warm Introductions</h4><p>Leverage advisory relationships, trusted network bridges, coffee chats, and site visits to build credibility.</p></div>
-            <div class="panel card"><h4>Webinars & Info Sessions</h4><p>Host “Healing in the Digital Age” sessions with founder leadership and cultural-tech conversation.</p></div>
-            <div class="panel card"><h4>Pilot Legacy Circles</h4><p>Offer co-hosted healing circles as low-barrier entry points to gather stories, data, and testimonials.</p></div>
-          </div>
-        </div>
-
-        <div id="partners-success" class="tabpane">
-          <div class="grid-2">
-            <div class="panel card"><h4>Objectives</h4><p>Secure 10 school and justice-system MOUs, onboard 5 cultural or health centers, and co-host 3 pilot healing circles.</p></div>
-            <div class="panel card"><h4>Metrics</h4><p>Track signed MOUs, youth engagement via partner referrals, partner satisfaction above 90%, and case-study publication output.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="launch">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Launch Timeline</div>
-          <h3>Operational rollout from setup through summit launch.</h3>
-          <p class="lead">The launch plan sequences product readiness, onboarding, pilot feedback, public access, and community summit activation in a staged flow.</p>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Phase</th><th>Timing</th><th>Key Tasks</th><th>Primary Ownership</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Preparation & Setup</strong></td><td>Weeks 1–3</td><td>Finalize branding, API development, CRM configuration, volunteer recruitment, content loading, QA testing.</td><td>Marketing, design, engineering, ops, volunteer leadership, content, QA.</td></tr>
-              <tr><td><strong>Soft Beta Launch</strong></td><td>Weeks 4–6</td><td>Invite beta users, host kickoff, collect feedback, monitor metrics, iterate UX, tease the broader launch.</td><td>Community, partnerships, UX research, analytics, product.</td></tr>
-              <tr><td><strong>Public Beta + Teaser</strong></td><td>Weeks 7–9</td><td>Public signups, teaser campaign, second Legacy Circle, case studies, summit logistics, stress testing.</td><td>Marketing, growth, engineering, community, content.</td></tr>
-              <tr><td><strong>Official Launch + Legacy Summit</strong></td><td>Weeks 10–12</td><td>Press outreach, paid memberships, referral program, launch challenges, FAQ/support, flagship summit activation.</td><td>Events, leadership, PR, finance, support, community.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="notice" style="margin-top:18px">This site presents the launch architecture clearly, but a truly live platform still requires backend implementation for authentication, payments, moderation workflows, analytics pipelines, and database persistence. Static site is the stage; backend is the engine.</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">Platform Architecture</div>
-          <h3>Public concept, product logic, CRM reporting, and support model in one place.</h3>
-          <p class="lead">Your blueprint included product API structure, CRM widgets, analytics events, and volunteer training tracks. This section turns that into a readable handoff layer for technical and operational audiences.</p>
-        </div>
-
-        <div class="tabs">
-          <button class="tabbtn active" data-tab="arch-api">API</button>
-          <button class="tabbtn" data-tab="arch-crm">CRM</button>
-          <button class="tabbtn" data-tab="arch-analytics">Analytics</button>
-          <button class="tabbtn" data-tab="arch-training">Training</button>
-        </div>
-
-        <div id="arch-api" class="tabpane active">
-          <div class="grid-2">
-            <div class="panel card"><h4>Legacy Score API</h4><p><strong>Base URL:</strong> <span class="subtle">https://api.confessionbucket.org/v1</span></p><p><strong>Auth:</strong> OAuth2 Bearer Token</p><p><strong>Core endpoints:</strong> score computation and user legacy retrieval.</p></div>
-            <div class="panel card"><h4>Primary Data Inputs</h4><p>confessionDepth, empathyReactions, journalEntries, mentorshipPoints, streakDays.</p><p>Responses include legacyScore, badge unlocks, and score breakdowns.</p></div>
-          </div>
-        </div>
-
-        <div id="arch-crm" class="tabpane">
-          <div class="grid-3">
-            <div class="panel card"><h4>Total Confessions</h4><p>Track overall platform activity and long-term sharing volume.</p></div>
-            <div class="panel card"><h4>Legacy Score Distribution</h4><p>Histogram logic for understanding engagement depth and gamification.</p></div>
-            <div class="panel card"><h4>Ritual Completions</h4><p>Trend visibility into healing ritual depth over time.</p></div>
-            <div class="panel card"><h4>Volunteer Engagement</h4><p>See active versus inactive steward and volunteer participation.</p></div>
-            <div class="panel card"><h4>Donor Contributions</h4><p>Compare one-time and recurring giving behavior.</p></div>
-            <div class="panel card"><h4>Flamekeeper Signups</h4><p>Track membership tier growth with drill-downs by geography and partner source.</p></div>
-          </div>
-        </div>
-
-        <div id="arch-analytics" class="tabpane">
-          <div class="panel card">
-            <h4>Key Tracking Events</h4>
-            <p class="subtle">userSignedUp, onboardingRitualStarted, onboardingRitualCompleted, confessionSubmitted, empathyReactionGiven, badgeUnlocked, journalEntryCreated, ritualCompleted, membershipPurchased, donationMade, loginSuccess, apiError.</p>
-            <p style="margin-top:14px">Reporting can feed Mixpanel or Google Analytics dashboards, weekly stakeholder reports, cohort analysis, and anomaly alerts.</p>
-          </div>
-        </div>
-
-        <div id="arch-training" class="tabpane">
-          <div class="grid-2">
-            <div class="panel card"><h4>Volunteer Deep-Dive Modules</h4><p>Advanced trauma-informed care, cultural humility, moderation tools, crisis intervention, and Legacy Circle facilitation.</p></div>
-            <div class="panel card"><h4>Certification Path</h4><p>Complete training in four weeks, pass a capstone facilitation assessment, and earn Legacy Steward certification.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="kicker">User Support FAQ</div>
-          <h3>Answers for members, partners, and early adopters.</h3>
-          <p class="lead">These FAQs translate your blueprint into usable public copy. They can later be expanded or refined once the live application layer is implemented.</p>
-        </div>
-
-        <div class="grid-2">
-          <div>
-            <div class="faq-item open"><button class="faq-q">How do I sign up for Confession Bucket?</button><div class="faq-a">Sign up with your email or social account, choose a membership tier, and complete the onboarding ritual to activate your experience.</div></div>
-            <div class="faq-item"><button class="faq-q">What is the onboarding ritual?</button><div class="faq-a">It is a guided trust-building flow that includes privacy choices, reflection prompts, and a consent-centered activation process.</div></div>
-            <div class="faq-item"><button class="faq-q">How do I share a confession?</button><div class="faq-a">Users create a confession, tag its emotional tone, select visibility, and submit it into a resonance-centered environment rather than a performance feed.</div></div>
-            <div class="faq-item"><button class="faq-q">How is Legacy Score calculated?</button><div class="faq-a">Legacy Score combines vulnerability, empathy, journaling, mentorship, and consistency using a weighted model that rewards healing behavior.</div></div>
-          </div>
-          <div>
-            <div class="faq-item"><button class="faq-q">What is the Maze Journal?</button><div class="faq-a">The Maze Journal is a themed daily prompt system that helps users move through structured reflection tracks over multiple days.</div></div>
-            <div class="faq-item"><button class="faq-q">Can I upgrade or downgrade membership?</button><div class="faq-a">Yes. The platform model includes Free, Flamekeeper, and Legacy Builder tiers with billing controls managed inside the account area once live.</div></div>
-            <div class="faq-item"><button class="faq-q">How is user data protected?</button><div class="faq-a">The blueprint calls for secure handling of account and activity data. Exact security implementation belongs to the live backend and infrastructure layer.</div></div>
-            <div class="faq-item"><button class="faq-q">How do I report harmful content?</button><div class="faq-a">The live platform is intended to route reports through Safety Stewards and moderation workflows with escalation protocols where needed.</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap footer-grid">
-      <div>
-        <div style="font-weight:800;color:var(--text);margin-bottom:6px">Confession Bucket</div>
-        <div class="small">Single-file deployable website shell built from the Final Blueprint for direct Chrome/Chromebook sharing and GitHub Pages publishing.</div>
-      </div>
-      <div class="small">
-        <div>Use this file as <strong>index.html</strong> in your GitHub repo.</div>
-        <div>Then replace your current published file to update the live site.</div>
+      <div class="hero-stats">
+        <div class="mini-stat"><div class="l">Post mode</div><div class="v">Anonymous</div></div>
+        <div class="mini-stat"><div class="l">Post mode</div><div class="v">Named</div></div>
+        <div class="mini-stat"><div class="l">Core action</div><div class="v">Confess</div></div>
+        <div class="mini-stat"><div class="l">Core action</div><div class="v">Respond</div></div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What the platform is</div>
+      <h2>Built for expression, relevance, and real connection.</h2>
+      <p class="lead">Konfession Bucket is designed for people who want to express confessions and then interact with others who have mutual interest, similar experiences, relevant thoughts, or useful perspective. The site structure is topic-led, adult-toned, and built to encourage conversation rather than empty posting.</p>
+    </div>
+    <div class="grid-3">
+      <div class="panel card"><div class="icon">🪣</div><h3>Bucket concept</h3><p class="muted">The bucket holds what people carry: confessions, burdens, truths, admissions, and subjects they need to talk through.</p></div>
+      <div class="panel card"><div class="icon">🗣️</div><h3>Adult communication</h3><p class="muted">The platform tone is mature and direct. It is built for grown conversation, not childish posting or trend-chasing.</p></div>
+      <div class="panel card"><div class="icon">🧭</div><h3>Subject structure</h3><p class="muted">Instead of one messy feed, people navigate through 29 avenues that keep the discussion relevant and easier to join.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="posting">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Posting model</div>
+      <h2>Users choose how they want to speak.</h2>
+      <p class="lead">The basic platform flow is simple: choose a subject avenue, decide whether to post anonymously or with your identity, state what kind of conversation you want, and let others respond through advice, support, ideas, or similar stories.</p>
+    </div>
+    <div class="posting-model">
+      <div class="post-tile"><strong>1. Choose a subject avenue</strong><br><span class="subtle">Find the lane that fits the confession or discussion.</span></div>
+      <div class="post-tile"><strong>2. Choose your identity mode</strong><br><span class="subtle">Anonymous or non-anonymous.</span></div>
+      <div class="post-tile"><strong>3. Choose your intent</strong><br><span class="subtle">Advice, support, ideas, or open sharing.</span></div>
+      <div class="post-tile"><strong>4. Start the conversation</strong><br><span class="subtle">Others enter based on relevance, similarity, and subject interest.</span></div>
+    </div>
+    <div class="grid-2" style="margin-top:18px">
+      <div class="panel card"><h3>Anonymous posting</h3><p class="muted">For people who need privacy, discretion, or distance from their identity while expressing themselves.</p></div>
+      <div class="panel card"><h3>Non-anonymous posting</h3><p class="muted">For people who are comfortable speaking openly and building discussion with their visible identity attached.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="responses">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Response model</div>
+      <h2>People do more than react. They converse.</h2>
+      <p class="lead">Konfession Bucket is designed around exchange. People enter conversations because they have relevant thoughts, similar experiences, or something useful to offer. The response system is built around real interaction instead of empty likes.</p>
+    </div>
+    <div class="response-grid">
+      <div class="response-pill">Advice</div>
+      <div class="response-pill">Ideas</div>
+      <div class="response-pill">Support</div>
+      <div class="response-pill">Shared Experience</div>
+    </div>
+    <div class="grid-3" style="margin-top:18px">
+      <div class="panel card"><h3>Mutual interest</h3><p class="muted">People connect because the subject matters to them.</p></div>
+      <div class="panel card"><h3>Relevant thoughts</h3><p class="muted">Replies are encouraged to stay connected to the topic and the user’s concern.</p></div>
+      <div class="panel card"><h3>Similarities</h3><p class="muted">Users can join because they have been through something close and want to share perspective.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="subjects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">29 subject avenues</div>
+      <h2>Every avenue gives people a place to land.</h2>
+      <p class="lead">These avenues keep Konfession Bucket organized around real adult subjects instead of one giant pile of unrelated confessions. Each one can become its own community lane inside the platform.</p>
+    </div>
+    <div class="subject-grid">
+      <div class="subject-card"><strong>Heartlines</strong><span>Love / relationships</span></div>
+      <div class="subject-card"><strong>Vows & Fractures</strong><span>Marriage</span></div>
+      <div class="subject-card"><strong>Crossed Lines</strong><span>Cheating</span></div>
+      <div class="subject-card"><strong>Parent Time</strong><span>Parenting</span></div>
+      <div class="subject-card"><strong>Blood Ties</strong><span>Family</span></div>
+      <div class="subject-card"><strong>Circle Talk</strong><span>Friendship</span></div>
+      <div class="subject-card"><strong>Behind the Closed Door</strong><span>Sex / intimacy</span></div>
+      <div class="subject-card"><strong>Chains & Cravings</strong><span>Addiction</span></div>
+      <div class="subject-card"><strong>What I Never Said</strong><span>Secrets</span></div>
+      <div class="subject-card"><strong>Broken Trust</strong><span>Betrayal</span></div>
+      <div class="subject-card"><strong>If I Could Undo It</strong><span>Regrets</span></div>
+      <div class="subject-card"><strong>Spiritual Lane</strong><span>Religion / spirituality</span></div>
+      <div class="subject-card"><strong>The Wound Room</strong><span>Trauma</span></div>
+      <div class="subject-card"><strong>Clocked In / Checked Out</strong><span>Work life</span></div>
+      <div class="subject-card"><strong>Money Pressure</strong><span>Finances</span></div>
+      <div class="subject-card"><strong>On the Record</strong><span>Legal troubles</span></div>
+      <div class="subject-card"><strong>Body & Burden</strong><span>Health</span></div>
+      <div class="subject-card"><strong>I Am Who</strong><span>Identity</span></div>
+      <div class="subject-card"><strong>After the Lost</strong><span>Grief</span></div>
+      <div class="subject-card"><strong>The Forgiveness Room</strong><span>Forgiveness</span></div>
+      <div class="subject-card"><strong>The Evil Eye</strong><span>Jealousy</span></div>
+      <div class="subject-card"><strong>After the Harm</strong><span>Abuse recovery</span></div>
+      <div class="subject-card"><strong>Heavy Mind</strong><span>Mental burden</span></div>
+      <div class="subject-card"><strong>How I’m Living</strong><span>Lifestyle choices</span></div>
+      <div class="subject-card"><strong>Social Conflict</strong><span>Social conflict</span></div>
+      <div class="subject-card"><strong>The Self Growth Lounge</strong><span>Personal growth</span></div>
+      <div class="subject-card"><strong>Right, Wrong, and Real</strong><span>Moral dilemmas</span></div>
+      <div class="subject-card"><strong>The Advice Lounge</strong><span>Confessions for advice</span></div>
+      <div class="subject-card"><strong>Open Floor</strong><span>Open subject / general</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How this can expand</div>
+      <h2>The 29 avenues can become the real navigation system.</h2>
+      <p class="lead">Each avenue can later hold its own feed, posting filters, popular confessions, advice threads, support threads, and subject moderators. That makes the concept not just feasible, but scalable.</p>
+    </div>
+    <div class="tabs">
+      <button class="tabbtn active" data-tab="tab-feasible">Feasibility</button>
+      <button class="tabbtn" data-tab="tab-live">Live App Later</button>
+      <button class="tabbtn" data-tab="tab-policy">Adult Boundaries</button>
+    </div>
+    <div id="tab-feasible" class="tabpane active">
+      <div class="grid-3">
+        <div class="panel card"><h3>Yes, feasible</h3><p class="muted">The subject avenue model is strong because it gives structure, discovery, and cleaner conversation paths.</p></div>
+        <div class="panel card"><h3>Strong public website</h3><p class="muted">As a website, it can clearly explain the concept, subject map, and posting choices right now.</p></div>
+        <div class="panel card"><h3>Strong future app</h3><p class="muted">As an app later, each avenue can become its own living discussion lane.</p></div>
+      </div>
+    </div>
+    <div id="tab-live" class="tabpane">
+      <div class="grid-2">
+        <div class="panel card"><h3>Phase 2 live features</h3><p class="muted">Real logins, saved posts, threaded replies, subject filters, moderation tools, and user profiles.</p></div>
+        <div class="panel card"><h3>Real button behavior later</h3><p class="muted">Buttons can eventually create posts, join discussions, save drafts, follow subjects, and report content.</p></div>
+      </div>
+    </div>
+    <div id="tab-policy" class="tabpane">
+      <div class="grid-2">
+        <div class="panel card"><h3>Adult communication only</h3><p class="muted">The platform should clearly state it is designed for adult discussion and mature subjects.</p></div>
+        <div class="panel card"><h3>Boundaries matter</h3><p class="muted">No harassment, no threats, no doxxing, no exploitation, and no illegal content. Adult does not mean lawless.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">FAQ</div>
+      <h2>Clear answers for the real concept.</h2>
+      <p class="lead">This FAQ now matches the actual Konfession Bucket idea instead of the wrong healing-platform placeholder shell.</p>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="faq-item open"><button class="faq-q">What is Konfession Bucket?</button><div class="faq-a">Konfession Bucket is an adult conversation website where users can express confessions anonymously or non-anonymously and connect with others through topic-based avenues.</div></div>
+        <div class="faq-item"><button class="faq-q">Can people post anonymously?</button><div class="faq-a">Yes. The concept supports both anonymous and non-anonymous posting so users can choose the level of privacy they need.</div></div>
+        <div class="faq-item"><button class="faq-q">Why 29 subject avenues?</button><div class="faq-a">The subject avenues keep the platform organized and help users find the right people, the right conversations, and the right relevance faster.</div></div>
+        <div class="faq-item"><button class="faq-q">What kind of responses are encouraged?</button><div class="faq-a">Advice, ideas, support, relevant thoughts, and similar experiences are the core response types.</div></div>
+      </div>
+      <div>
+        <div class="faq-item"><button class="faq-q">Is this connected to Blackshield Institute?</button><div class="faq-a">No. Konfession Bucket is separate and should not be connected to Blackshield Institute branding, naming, or platform information.</div></div>
+        <div class="faq-item"><button class="faq-q">Is this site for adults?</button><div class="faq-a">Yes. The tone and structure are intended for adult communication and mature topic discussion.</div></div>
+        <div class="faq-item"><button class="faq-q">Can this become a full live app later?</button><div class="faq-a">Yes. The website concept is fully feasible and can grow into a live platform with accounts, posting, replies, subject feeds, and moderation tools.</div></div>
+        <div class="faq-item"><button class="faq-q">Why do the buttons work differently now?</button><div class="faq-a">In this manual HTML version, the buttons are built to jump to real sections and explain the concept clearly. In a future live app, they would trigger real posting and account actions.</div></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:18px">This manual version is now aligned to the actual Konfession Bucket concept. No Blackshield crossover. No fake dashboard fluff. No confused branding mix-up.</div>
+  </div>
+</section>
+
+  </main>  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div style="font-weight:900;color:var(--text);margin-bottom:6px">Konfession Bucket</div>
+        <div class="small">Adult confessions, real conversation, 29 subject avenues, anonymous or non-anonymous expression.</div>
+      </div>
+      <div class="small">
+        <div>Manual HTML version for direct copy into GitHub as <strong>index.html</strong>.</div>
+        <div>Buttons now jump to real sections inside the page.</div>
+      </div>
+    </div>
+  </footer>  <script>
     document.querySelectorAll('.tabbtn').forEach(btn => {
       btn.addEventListener('click', () => {
         const parent = btn.parentElement;
@@ -427,12 +373,8 @@
         if (pane) pane.classList.add('active');
       });
     });
-
     document.querySelectorAll('.faq-q').forEach(q => {
-      q.addEventListener('click', () => {
-        q.parentElement.classList.toggle('open');
-      });
+      q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
     });
-  </script>
-</body>
+  </script></body>
 </html>
