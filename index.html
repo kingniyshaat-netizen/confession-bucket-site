@@ -1,63 +1,68 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Konfession Bucket | Front-End Demo</title>
-  <meta name="description" content="Konfession Bucket front-end demo with clickable subject avenues, sample confessions, demo replies, and working filters." />
+  <title>Konfession Bucket | MVP Demo</title>
+  <meta name="description" content="Konfession Bucket is an adult confession-based interactive platform demo for anonymous or named posts, topic lounges, support, advice, and shared experience." />
   <style>
     :root{
-      --bg:#090807;
-      --bg2:#110e0d;
-      --panel:#171210;
-      --panel2:#201915;
+      --bg:#0a0807;
+      --bg-soft:#120f0d;
+      --panel:#181311;
+      --panel-2:#221b17;
       --line:rgba(255,255,255,.10);
-      --text:#f7f0e8;
-      --muted:#c9bbab;
+      --line-2:rgba(255,255,255,.06);
+      --text:#f7efe6;
+      --muted:#c7b7a6;
       --soft:#9f8f7d;
+      --gold:#dfb06a;
+      --gold-2:#f0cf9c;
       --ember:#ffb15c;
-      --ember2:#ff7a18;
-      --gold:#e3b163;
-      --gold2:#f1cf9a;
-      --good:#53c781;
+      --ember-2:#ff7a18;
+      --good:#58cf88;
+      --warn:#ffcc66;
+      --bad:#ff8a8a;
       --radius:24px;
-      --shadow:0 18px 44px rgba(0,0,0,.35);
-      --max:1320px;
+      --radius-sm:16px;
+      --shadow:0 22px 50px rgba(0,0,0,.34);
+      --max:1380px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 460px at 10% 0%, rgba(255,122,24,.18), transparent 45%),
-        radial-gradient(900px 460px at 100% 12%, rgba(227,177,99,.12), transparent 48%),
-        linear-gradient(180deg,#0a0807 0%,#0c0a09 32%,#090807 100%);
+        radial-gradient(1000px 520px at 12% 0%, rgba(255,122,24,.17), transparent 46%),
+        radial-gradient(900px 480px at 92% 8%, rgba(223,176,106,.13), transparent 44%),
+        linear-gradient(180deg, #090807 0%, #0d0a09 34%, #090807 100%);
       line-height:1.55;
     }
     a{text-decoration:none;color:inherit}
-    button{font:inherit}
+    button,input,select,textarea{font:inherit}
     .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
     .topbar{
-      position:sticky;top:0;z-index:50;
+      position:sticky;top:0;z-index:60;
       backdrop-filter:blur(18px);
-      background:rgba(9,8,7,.88);
+      background:rgba(10,8,7,.88);
       border-bottom:1px solid var(--line);
     }
     .nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:14px}
     .mark{
       width:52px;height:52px;border-radius:18px;display:grid;place-items:center;
-      background:linear-gradient(145deg,var(--gold),var(--ember2));
-      color:#2c1708;font-size:26px;font-weight:900;
+      background:linear-gradient(145deg,var(--gold),var(--ember-2));
+      color:#2a1608;font-size:26px;font-weight:900;
       box-shadow:0 10px 26px rgba(255,122,24,.24);
     }
-    .brand p{margin:0;color:var(--soft);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+    .brand p{margin:0;color:var(--soft);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
     .brand h1{margin:3px 0 0;font-size:1rem;line-height:1.1}
     .navlinks{display:flex;gap:18px;flex-wrap:wrap}
     .navlinks a{color:var(--muted);font-size:.95rem}
     .navlinks a:hover{color:#fff}
-    .cta-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       min-height:46px;padding:0 18px;border-radius:999px;border:1px solid var(--line);
@@ -65,20 +70,21 @@
       transition:.2s ease;
     }
     .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.07)}
-    .btn.primary{background:linear-gradient(135deg,var(--gold),var(--ember));color:#2d1707;border:none}
-    .hero{padding:84px 0 52px;border-bottom:1px solid var(--line)}
-    .hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:28px;align-items:center}
+    .btn.primary{background:linear-gradient(135deg,var(--gold),var(--ember));color:#2c1708;border:none}
+    .btn.ghost{background:transparent}
+    .hero{padding:86px 0 56px;border-bottom:1px solid var(--line)}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
     .eyebrow{
       display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;
-      border:1px solid rgba(227,177,99,.25);background:rgba(227,177,99,.08);color:var(--gold2);
+      border:1px solid rgba(223,176,106,.25);background:rgba(223,176,106,.08);color:var(--gold-2);
       font-size:.88rem;font-weight:800;margin-bottom:18px;
     }
-    .hero-title{margin:0;font-size:clamp(2.7rem,5vw,5rem);line-height:.96;letter-spacing:-.05em}
+    .hero h2{margin:0;font-size:clamp(2.8rem,5vw,5.2rem);line-height:.96;letter-spacing:-.05em}
     .accent{color:#ffd8ac}
-    .hero-copy{font-size:1.08rem;color:var(--muted);max-width:760px;margin:18px 0 24px}
-    .quote-band{margin-top:18px;padding:16px 18px;border-radius:18px;border:1px solid rgba(227,177,99,.16);background:rgba(227,177,99,.06);color:#ecd6b2;font-size:.98rem}
+    .hero-copy{font-size:1.08rem;color:var(--muted);max-width:780px;margin:18px 0 24px}
+    .quote-band{margin-top:18px;padding:16px 18px;border-radius:18px;border:1px solid rgba(223,176,106,.16);background:rgba(223,176,106,.06);color:#ecd6b2;font-size:.98rem}
     .panel{background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hero-card{padding:20px}
+    .card{padding:22px}
     .windowbar{display:flex;justify-content:space-between;align-items:center;color:var(--soft);font-size:.82rem;margin-bottom:16px}
     .dots{display:flex;gap:8px}.dot{width:11px;height:11px;border-radius:999px}.red{background:#f87171}.yellow{background:#fbbf24}.green{background:#4ade80}
     .hero-list{display:grid;gap:12px}
@@ -86,61 +92,73 @@
     .hero-item strong{display:block;margin-bottom:4px}
     .mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
     .mini-stat{padding:14px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
-    .mini-stat .l{font-size:.78rem;color:var(--soft);letter-spacing:.14em;text-transform:uppercase}
-    .mini-stat .v{font-size:1.12rem;font-weight:900;margin-top:5px}
-    .section{padding:78px 0}
+    .mini-stat .l{font-size:.78rem;color:var(--soft);letter-spacing:.14em;text-transform:uppercase}.mini-stat .v{font-size:1.12rem;font-weight:900;margin-top:5px}
+    .section{padding:80px 0}
     .section-head{max-width:940px;margin-bottom:30px}
     .kicker{display:inline-block;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:#ebcc9f;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;font-weight:900;margin-bottom:16px}
-    .section h2{margin:0 0 12px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.04;letter-spacing:-.03em}
-    .lead{margin:0;color:var(--muted);font-size:1.04rem;max-width:900px}
+    .section h3.main{margin:0 0 12px;font-size:clamp(2rem,4vw,3.45rem);line-height:1.04;letter-spacing:-.03em}
+    .lead{margin:0;color:var(--muted);font-size:1.04rem;max-width:920px}
     .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
     .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{padding:22px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .subtle{color:var(--soft)} .muted{color:var(--muted)}
+    .pillars .panel,.roles .panel,.foundation .panel{height:100%}
     .icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:rgba(255,177,92,.12);border:1px solid rgba(255,177,92,.15);color:#ffd29f;font-size:1.2rem;margin-bottom:14px}
-    h3{margin:0 0 8px;font-size:1.12rem} p{margin:0}
-    .muted{color:var(--muted)} .subtle{color:var(--soft)}
     .subject-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .subject-btn{
-      width:100%;text-align:left;padding:16px 16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03);
-      color:var(--text);cursor:pointer;transition:.2s ease;
-    }
+    .subject-btn{width:100%;text-align:left;padding:16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer;transition:.2s ease}
     .subject-btn:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
-    .subject-btn.active{background:linear-gradient(135deg, rgba(227,177,99,.18), rgba(255,122,24,.14));border-color:rgba(227,177,99,.28)}
-    .subject-btn strong{display:block;font-size:1rem;margin-bottom:2px}
-    .subject-btn span{display:block;color:var(--soft);font-size:.86rem}
-    .demo-shell{display:grid;grid-template-columns:.95fr 1.05fr;gap:18px;align-items:start}
-    .info-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:.82rem;color:var(--muted)}
-    .chip.gold{background:rgba(227,177,99,.10);color:#f3d7ac;border-color:rgba(227,177,99,.20)}
+    .subject-btn.active{background:linear-gradient(135deg, rgba(223,176,106,.18), rgba(255,122,24,.14));border-color:rgba(223,176,106,.28)}
+    .subject-btn strong{display:block;margin-bottom:3px;font-size:1rem}
+    .subject-btn span{display:block;color:var(--soft);font-size:.85rem}
+    .demo-shell{display:grid;grid-template-columns:.92fr 1.08fr;gap:18px;align-items:start}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+    .chip.gold{background:rgba(223,176,106,.10);color:#f3d7ac;border-color:rgba(223,176,106,.20)}
     .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
     .filter-btn{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);font-weight:800;cursor:pointer}
     .filter-btn.active{background:linear-gradient(135deg,var(--gold),var(--ember));color:#2a1608;border:none}
+    .searchbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .searchbar input,.searchbar select,.form-grid input,.form-grid select,.form-grid textarea{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);border-radius:14px;padding:12px 14px;outline:none}
+    .form-grid textarea{min-height:120px;resize:vertical}
     .post-card{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid var(--line);margin-bottom:14px}
-    .post-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+    .post-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
     .badge-row{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:.74rem;font-weight:900;background:rgba(227,177,99,.12);color:#ffd29f;border:1px solid rgba(227,177,99,.18)}
+    .badge{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:.74rem;font-weight:900;background:rgba(223,176,106,.12);color:#ffd29f;border:1px solid rgba(223,176,106,.18)}
     .badge.alt{background:rgba(255,255,255,.05);color:var(--muted);border-color:var(--line)}
+    .badge.good{background:rgba(88,207,136,.12);color:#bff0cf;border-color:rgba(88,207,136,.18)}
     .post-title{font-size:1.06rem;font-weight:900;margin:0 0 6px}
     .post-copy{color:var(--muted)}
     .reply-list{display:grid;gap:12px;margin-top:14px}
-    .reply-card{padding:14px 14px;border-radius:16px;background:rgba(0,0,0,.18);border:1px solid var(--line)}
+    .reply-card{padding:14px;border-radius:16px;background:rgba(0,0,0,.18);border:1px solid var(--line)}
     .reply-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
     .reply-type{font-size:.74rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#f4d2a0}
     .reply-mode{font-size:.75rem;color:var(--soft)}
     .reply-copy{color:var(--muted);font-size:.95rem}
-    .mock-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .action-btn{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-weight:800}
+    .support-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .support-pill{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:.84rem;font-weight:800;color:var(--muted)}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.66);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
+    .modal.open{display:flex}
+    .modal-card{width:min(760px,100%);max-height:90vh;overflow:auto}
+    .form-grid{display:grid;gap:14px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .empty{padding:24px;border-radius:18px;border:1px dashed var(--line);color:var(--soft);text-align:center;background:rgba(255,255,255,.02)}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 24px}
+    .tabbtn{border:none;border-radius:999px;padding:11px 15px;font-weight:900;cursor:pointer;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--line)}
+    .tabbtn.active{background:linear-gradient(135deg,var(--gold),var(--ember));color:#2a1608}
+    .tabpane{display:none}.tabpane.active{display:block}
+    .queue-card{padding:16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+    .queue-status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:.74rem;font-weight:900;margin-bottom:10px}
+    .status-open{background:rgba(255,204,102,.12);color:#ffe2a4}.status-review{background:rgba(255,138,138,.12);color:#ffd0d0}.status-closed{background:rgba(88,207,136,.12);color:#bff0cf}
     .faq-item{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
     .faq-q{width:100%;text-align:left;border:none;background:transparent;color:var(--text);padding:18px;font-size:1rem;font-weight:900;cursor:pointer}
     .faq-a{display:none;padding:0 18px 18px;color:var(--muted)}
     .faq-item.open .faq-a{display:block}
-    .note{padding:16px 18px;border-radius:18px;border:1px solid rgba(255,177,92,.16);background:rgba(255,177,92,.06);color:#ecd6b2}
+    .note{padding:16px 18px;border-radius:18px;border:1px solid rgba(223,176,106,.16);background:rgba(223,176,106,.06);color:#ecd6b2}
     .footer{padding:36px 0 56px;border-top:1px solid var(--line);color:var(--soft)}
     .footer-grid{display:flex;justify-content:space-between;gap:22px;align-items:flex-start;flex-wrap:wrap}
     .small{font-size:.92rem}
-    .hidden{display:none !important}
-    @media (max-width:1100px){.hero-grid,.grid-3,.subject-grid,.demo-shell{grid-template-columns:1fr 1fr}}
-    @media (max-width:820px){.navlinks{display:none}.hero{padding-top:54px}.hero-grid,.grid-2,.grid-3,.subject-grid,.demo-shell{grid-template-columns:1fr}.cta-row{width:100%}.cta-row .btn{width:100%}}
+    @media (max-width:1120px){.hero-grid,.grid-4,.grid-3,.subject-grid,.demo-shell{grid-template-columns:1fr 1fr}}
+    @media (max-width:840px){.navlinks{display:none}.hero{padding-top:56px}.hero-grid,.grid-2,.grid-3,.grid-4,.subject-grid,.demo-shell,.two{grid-template-columns:1fr}.btn-row,.cta-row{width:100%}.btn-row .btn,.cta-row .btn{width:100%}}
   </style>
 </head>
 <body>
@@ -149,651 +167,416 @@
       <div class="brand">
         <div class="mark">🪣</div>
         <div>
-          <p>Adult conversation platform</p>
+          <p>Standalone product</p>
           <h1>Konfession Bucket</h1>
         </div>
       </div>
       <nav class="navlinks">
-        <a href="#about">About</a>
+        <a href="#foundation">Foundation</a>
+        <a href="#architecture">Architecture</a>
         <a href="#avenues">Avenues</a>
         <a href="#demo">Demo</a>
-        <a href="#faq">FAQ</a>
+        <a href="#systems">Systems</a>
+        <a href="#roadmap">Roadmap</a>
       </nav>
-      <div class="cta-row">
-        <a class="btn" href="#avenues">Browse Avenues</a>
+      <div class="btn-row">
+        <button class="btn" id="openSubmitTop">New Konfession</button>
         <a class="btn primary" href="#demo">Open Demo</a>
       </div>
     </div>
-  </header>  <main>
-    <section class="hero" id="about">
+  </header>
+
+  <main>
+    <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow">Front-end demo • Anonymous or named • Advice, support, ideas, shared experience</div>
-          <h2 class="hero-title">More than a brochure.<br><span class="accent">This demo behaves closer to a real platform.</span></h2>
-          <p class="hero-copy">This Konfession Bucket front-end demo lets you click subject avenues, load sample confessions, view demo replies, and filter responses by advice, support, shared experience, anonymous, and named conversation modes. It is still a front-end demo, but it behaves like an actual product shell now.</p>
-          <div class="cta-row">
-            <a class="btn primary" href="#demo">Try the Demo</a>
-            <a class="btn" href="#avenues">See All Avenues</a>
+          <div class="eyebrow">Confession-based adult interaction platform • single-file MVP demo • no backend dependency</div>
+          <h2>Confessions, burdens, warnings, lessons, regrets, and truth.<br><span class="accent">Structured into lounges people can actually use.</span></h2>
+          <p class="hero-copy">Konfession Bucket is a confession-based interactive platform where adults can post anonymously or openly, find the right avenue for the right subject, and receive advice, support, ideas, and shared experience without the chaos of a generic social feed. This package includes a real front-end MVP demo, a platform operating model, trust and moderation structure, and deployment guidance that can be opened in Chrome or Chromebook immediately.</p>
+          <div class="btn-row">
+            <a class="btn primary" href="#demo">Try the Interactive Feed</a>
+            <a class="btn" href="#avenues">Browse 29 Avenues</a>
           </div>
-          <div class="quote-band">This is the “feels more real” version. Buttons do things. Subject lanes switch. Replies filter. Still no backend smoke and mirrors.</div>
+          <div class="quote-band">Executive decision: dark, elegant, emotionally safe visual tone; adult communication standard; subject-based structure; one-file local-first prototype that feels alive before backend.</div>
         </div>
-        <div class="panel hero-card">
-          <div class="windowbar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><div>Front-End Demo Snapshot</div></div>
+        <div class="panel card">
+          <div class="windowbar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><div>MVP Snapshot</div></div>
           <div class="hero-list">
-            <div class="hero-item"><strong>Clickable subject tiles</strong><span class="subtle">Each avenue opens its own sample panel inside the demo.</span></div>
-            <div class="hero-item"><strong>Sample confession cards</strong><span class="subtle">Multiple cards render depending on the selected subject avenue.</span></div>
-            <div class="hero-item"><strong>Demo reply cards</strong><span class="subtle">Replies include advice, support, ideas, and shared experience modes.</span></div>
-            <div class="hero-item"><strong>Working filters</strong><span class="subtle">Filter by anonymous, named, advice, support, and shared experience.</span></div>
+            <div class="hero-item"><strong>Anonymous or named posting logic</strong><span class="subtle">Users choose visibility mode at submission.</span></div>
+            <div class="hero-item"><strong>29 avenue system</strong><span class="subtle">Topic lounges replace one messy universal feed.</span></div>
+            <div class="hero-item"><strong>Support / advice / shared experience model</strong><span class="subtle">Responses are structured around relevance and usefulness.</span></div>
+            <div class="hero-item"><strong>Moderation-aware by design</strong><span class="subtle">Reporting, sensitivity levels, and admin queue starter included.</span></div>
           </div>
           <div class="mini-grid">
-            <div class="mini-stat"><div class="l">Mode</div><div class="v">Front-End Demo</div></div>
-            <div class="mini-stat"><div class="l">Posting style</div><div class="v">Anonymous / Named</div></div>
-            <div class="mini-stat"><div class="l">Discussion type</div><div class="v">Advice / Support</div></div>
-            <div class="mini-stat"><div class="l">Avenues</div><div class="v">29</div></div>
+            <div class="mini-stat"><div class="l">Build type</div><div class="v">Single-file MVP</div></div>
+            <div class="mini-stat"><div class="l">Audience</div><div class="v">Adults</div></div>
+            <div class="mini-stat"><div class="l">Identity</div><div class="v">Anonymous / Named</div></div>
+            <div class="mini-stat"><div class="l">Shareability</div><div class="v">GitHub-ready</div></div>
           </div>
         </div>
       </div>
-    </section><section class="section" id="avenues">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Subject avenues</div>
-      <h2>Pick a lane and load a live-looking sample panel.</h2>
-      <p class="lead">These subject tiles are no longer dead placeholders. Click any avenue and the demo panel below will switch to that lane’s sample confessions and replies.</p>
-    </div>
-    <div class="subject-grid" id="subjectGrid"></div>
-  </div>
-</section>
+    </section>
 
-<section class="section" id="demo">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Interactive demo</div>
-      <h2>Open a subject avenue and filter how people respond.</h2>
-      <p class="lead">This demo gives you a realistic product feel without pretending there is a backend. The content is sample-only, but the behavior is interactive and structured like a real subject-based conversation platform.</p>
-    </div>
-
-    <div class="demo-shell">
-      <div class="panel card">
-        <h3 id="activeSubjectTitle">Heartlines</h3>
-        <p class="muted" id="activeSubjectDesc">Love / relationships</p>
-        <div class="info-strip">
-          <span class="chip gold" id="activeSubjectType">Adult avenue</span>
-          <span class="chip">Anonymous + named posting</span>
-          <span class="chip">Advice + support + shared experience</span>
+    <section class="section foundation" id="foundation">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">A. Product foundation</div>
+          <h3 class="main">Product definition, mission, audience, roles, and trust logic.</h3>
+          <p class="lead">Confession Bucket is a standalone product, separate from any other platform identity. It exists to give adults a structured place to confess, reflect, ask for perspective, and connect with people who have relevant experience or useful thoughts. It is designed to feel emotionally real, socially engaging, and usable before production backend is added.</p>
         </div>
-        <div class="mock-actions">
-          <button class="action-btn">Anonymous Post</button>
-          <button class="action-btn">Named Post</button>
-          <button class="action-btn">Ask for Advice</button>
-          <button class="action-btn">Open Discussion</button>
+        <div class="grid-4 pillars">
+          <div class="panel card"><div class="icon">🪣</div><h3>Product definition</h3><p class="muted">A confession-based adult interaction platform organized by topic avenues, response intent, and identity mode.</p></div>
+          <div class="panel card"><div class="icon">🎯</div><h3>Mission & purpose</h3><p class="muted">Turn raw confessions into structured, relevant, and safer conversation rather than algorithmic noise.</p></div>
+          <div class="panel card"><div class="icon">🧠</div><h3>Emotional safety intent</h3><p class="muted">Make honesty feel possible without making the experience soft, childish, or chaotic.</p></div>
+          <div class="panel card"><div class="icon">🛡️</div><h3>Trust philosophy</h3><p class="muted">Adults can speak hard truths, but the platform still enforces boundaries, reporting, and moderation logic.</p></div>
         </div>
-        <div class="note" style="margin-top:16px">These buttons are demo UI only. In a live app, they would open forms, save posts, and create real threads.</div>
-      </div>
-
-      <div class="panel card">
-        <div class="filters" id="filters">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="advice">Advice</button>
-          <button class="filter-btn" data-filter="support">Support</button>
-          <button class="filter-btn" data-filter="shared">Shared Experience</button>
-          <button class="filter-btn" data-filter="anonymous">Anonymous</button>
-          <button class="filter-btn" data-filter="named">Named</button>
+        <div class="grid-3 roles" style="margin-top:18px">
+          <div class="panel card"><h3>Audience segments</h3><p class="muted">Adults seeking advice, support, perspective, confession release, moral discussion, testimony sharing, or community relevance.</p></div>
+          <div class="panel card"><h3>User roles</h3><p class="muted">Guest browser, anonymous poster, named poster, engaged responder, moderator, admin, and future partner/community steward.</p></div>
+          <div class="panel card"><h3>Growth/shareability model</h3><p class="muted">Shareable avenue pages, highly relatable sample posts, invite-worthy topic lounges, and friction-light anonymous entry.</p></div>
         </div>
-        <div id="postsContainer"></div>
+        <div class="grid-2" style="margin-top:18px">
+          <div class="panel card"><h3>User journey</h3><p class="muted">Landing page → avenue browse → choose identity mode → submit confession → receive filtered replies → report / save / return to avenue.</p></div>
+          <div class="panel card"><h3>Engagement model</h3><p class="muted">Topic relevance drives entry, response intent shapes interaction, and subject lounges create repeat usage instead of one-off dumping.</p></div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">FAQ</div>
-      <h2>What this demo does and what it still does not do.</h2>
-      <p class="lead">This version is much closer to a realistic front-end experience, but it is still not a database-backed live app. No cap, no fairy dust.</p>
-    </div>
-    <div class="grid-2">
-      <div>
-        <div class="faq-item open"><button class="faq-q">What works in this demo?</button><div class="faq-a">Subject switching, avenue panel updates, confession card rendering, reply card rendering, filter buttons, section jumps, and FAQ toggles all work in the browser.</div></div>
-        <div class="faq-item"><button class="faq-q">What is still fake?</button><div class="faq-a">Posting, saving, account creation, replies, moderation, and real filters tied to a database are still not live. The content is demo content.</div></div>
-        <div class="faq-item"><button class="faq-q">Why is this better than the earlier version?</button><div class="faq-a">Because it behaves like a product demo instead of a static concept page. You can actually click around and feel the subject-lane structure.</div></div>
+    <section class="section" id="architecture">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">B. Platform information architecture</div>
+          <h3 class="main">Homepage, cards, filters, search, moderation flow, and identity logic.</h3>
+          <p class="lead">The information architecture is intentionally simple: clear homepage framing, avenue-led navigation, confession feed cards, reply cards, visible response intent, and reporting pathways. It feels like a real platform because the structure reduces confusion and pushes people into the right kind of conversation quickly.</p>
+        </div>
+        <div class="grid-3">
+          <div class="panel card"><h3>Homepage structure</h3><p class="muted">Hero, foundation summary, avenue map, interactive demo feed, submission modal, safety system, admin starter, FAQ, roadmap.</p></div>
+          <div class="panel card"><h3>Confession card structure</h3><p class="muted">Title, avenue, post mode, intent tag, body copy, support interactions, reply thread preview, report action.</p></div>
+          <div class="panel card"><h3>Reply card structure</h3><p class="muted">Reply type, identity mode, concise response copy, empathy tone, moderation-safe presentation.</p></div>
+          <div class="panel card"><h3>Submission flow</h3><p class="muted">Choose avenue → choose anonymous or named → choose intent → title → body → optional safety reminder → publish.</p></div>
+          <div class="panel card"><h3>Filter system</h3><p class="muted">All, anonymous, named, advice, support, shared experience, plus avenue selection and search keyword match.</p></div>
+          <div class="panel card"><h3>Search logic</h3><p class="muted">Client-side keyword match across post title, body, avenue title, and reply text in the demo. Production version upgrades to indexed search.</p></div>
+          <div class="panel card"><h3>Profile / identity logic</h3><p class="muted">Anonymous hides visible identity. Named uses a simple display handle. Future profile layer adds badges, saved posts, participation history.</p></div>
+          <div class="panel card"><h3>Reaction / support structure</h3><p class="muted">Understood, Been There, Stay Strong, Good Advice, Heavy Topic. These reinforce participation without cheapening the tone.</p></div>
+          <div class="panel card"><h3>Reporting / moderation flow</h3><p class="muted">Report category selection → queue state → review status → action state. Sensitive avenues carry stronger review attention.</p></div>
+        </div>
       </div>
-      <div>
-        <div class="faq-item"><button class="faq-q">Can each subject become its own live feed later?</button><div class="faq-a">Yes. That is exactly how the real app should evolve: each avenue becoming a live subject community with posts, replies, filters, and moderation.</div></div>
-        <div class="faq-item"><button class="faq-q">Is this separate from Blackshield?</button><div class="faq-a">Yes. Konfession Bucket is separate and should not connect to Blackshield Institute branding, naming, or platform information.</div></div>
-        <div class="faq-item"><button class="faq-q">What is the next real upgrade?</button><div class="faq-a">The next real upgrade is a true Phase 2 app layer with live forms, auth, database tables, and dynamic subject feeds.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-  </main>  <footer class="footer">
+    <section class="section" id="avenues">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">C. Topic / avenue structure</div>
+          <h3 class="main">29 lounges with purpose, tone, confession types, and moderation sensitivity.</h3>
+          <p class="lead">These avenues are treated as product-level lanes, not decorative labels. Each has a purpose, tone, and sensitivity level. High sensitivity lanes are expected to require stronger moderation awareness in production.</p>
+        </div>
+        <div class="subject-grid" id="subjectGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="copy">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">D. UX / UI content system</div>
+          <h3 class="main">Hero copy, onboarding, prompts, labels, safety language, microcopy, and sample interactions.</h3>
+          <p class="lead">The content system is built to feel emotionally aware without sounding soft, generic, or robotic. The microcopy keeps the product clear, mature, and structurally safe.</p>
+        </div>
+        <div class="grid-3">
+          <div class="panel card"><h3>Homepage hero copy</h3><p class="muted">“Confessions, burdens, warnings, lessons, regrets, and truth. Structured into lounges people can actually use.”</p></div>
+          <div class="panel card"><h3>Onboarding copy</h3><p class="muted">“Choose your lane. Choose your mode. Say what needs to be said.”</p></div>
+          <div class="panel card"><h3>Community explanation</h3><p class="muted">“This is not a random feed. Replies are meant to add perspective, support, clarity, or lived relevance.”</p></div>
+          <div class="panel card"><h3>Submission prompts</h3><p class="muted">“What happened?” “What are you trying to understand?” “What kind of response do you want back?”</p></div>
+          <div class="panel card"><h3>Empty states</h3><p class="muted">“No konfessions match that filter yet.” “Try another avenue, mode, or keyword.”</p></div>
+          <div class="panel card"><h3>Moderation language</h3><p class="muted">“Report harmful, exploitative, threatening, or boundary-crossing content. Adult does not mean unmoderated.”</p></div>
+          <div class="panel card"><h3>Safety reminders</h3><p class="muted">“Do not post threats, doxxing, exploitation, or criminal planning.” “Protect your privacy when posting anonymously.”</p></div>
+          <div class="panel card"><h3>Footer text</h3><p class="muted">“Konfession Bucket — adult confessions, structured conversation, and topic-led community.”</p></div>
+          <div class="panel card"><h3>Button text</h3><p class="muted">New Konfession, Browse Avenues, Open Demo, Submit Post, Report, Filter Replies, View Queue.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="demo">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">E. Functional front-end build</div>
+          <h3 class="main">Interactive avenue explorer, confession feed, reply filters, sorting, search, and submission modal.</h3>
+          <p class="lead">This is the runnable product layer. Click an avenue, search, switch filters, change sorting, and submit a new demo confession through the modal. The demo data is included by default so the platform feels alive immediately.</p>
+        </div>
+        <div class="demo-shell">
+          <div class="panel card">
+            <h3 id="activeSubjectTitle">Heartlines</h3>
+            <p class="muted" id="activeSubjectDesc">Love / relationships</p>
+            <div class="chips">
+              <span class="chip gold" id="activeSensitivity">Sensitivity: Medium</span>
+              <span class="chip" id="activePurpose">Purpose: relationship confession and discussion</span>
+              <span class="chip" id="activeTone">Tone: intimate, conflicted, reflective</span>
+            </div>
+            <div class="note" style="margin-top:16px" id="activeSamples"></div>
+            <div class="btn-row" style="margin-top:16px">
+              <button class="btn primary" id="openSubmitMiddle">New Konfession</button>
+              <button class="btn" id="jumpFeed">Jump to Feed</button>
+            </div>
+          </div>
+          <div class="panel card" id="feedTop">
+            <div class="searchbar">
+              <input id="searchInput" type="text" placeholder="Search avenue, confession title, or reply text" />
+              <select id="sortSelect">
+                <option value="recent">Sort: Most recent style</option>
+                <option value="anonymous">Sort: Anonymous first</option>
+                <option value="named">Sort: Named first</option>
+                <option value="advice">Sort: Advice first</option>
+              </select>
+            </div>
+            <div class="filters" id="filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="advice">Advice</button>
+              <button class="filter-btn" data-filter="support">Support</button>
+              <button class="filter-btn" data-filter="shared">Shared Experience</button>
+              <button class="filter-btn" data-filter="anonymous">Anonymous</button>
+              <button class="filter-btn" data-filter="named">Named</button>
+            </div>
+            <div id="postsContainer"></div>
+            <div id="emptyState" class="empty hidden">No konfessions match that search and filter combination.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="systems">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">F. Product systems</div>
+          <h3 class="main">Moderation queue, report categories, flagged states, privacy logic, trust rules, and admin starter.</h3>
+          <p class="lead">The platform is not pretending moderation will handle itself. Sensitive lounges, adult discussion, anonymity, and emotional intensity all require real review pathways. This section gives you the system logic and a starter admin-facing view.</p>
+        </div>
+        <div class="grid-3">
+          <div class="panel card"><h3>Report categories</h3><p class="muted">Harassment, threat, sexual exploitation, self-harm concern, hateful abuse, illegal content, doxxing/privacy breach, spam/manipulation, graphic harm.</p></div>
+          <div class="panel card"><h3>Flagged states</h3><p class="muted">Open, under review, action taken, closed, escalated. High-sensitivity avenues should route faster.</p></div>
+          <div class="panel card"><h3>Privacy logic</h3><p class="muted">Anonymous posts suppress display identity. Named posts use visible handles. Sensitive reminders appear before publish.</p></div>
+          <div class="panel card"><h3>Trust equivalents</h3><p class="muted">No gamified vanity badges by default. Use light trust signals later such as constructive responder, respectful voice, or verified moderator.</p></div>
+          <div class="panel card"><h3>Posting guidelines</h3><p class="muted">Be honest, stay relevant, avoid direct threats, avoid exposing others, avoid criminal planning, and respect lounge purpose.</p></div>
+          <div class="panel card"><h3>Terms / privacy starter</h3><p class="muted">Use legal placeholders in the MVP: platform is for adults, content may be moderated, anonymity is best-effort in UI, not absolute legal secrecy.</p></div>
+        </div>
+        <div class="tabs">
+          <button class="tabbtn active" data-tab="queue-tab">Moderation Queue</button>
+          <button class="tabbtn" data-tab="rules-tab">Safety Rules</button>
+          <button class="tabbtn" data-tab="admin-tab">Admin View Starter</button>
+        </div>
+        <div id="queue-tab" class="tabpane active">
+          <div class="grid-3">
+            <div class="queue-card"><span class="queue-status status-open">Open</span><h3>Heavy Mind post flagged for self-harm concern</h3><p class="muted">Action: urgent review recommended, supportive response guidance visible.</p></div>
+            <div class="queue-card"><span class="queue-status status-review">Under review</span><h3>Behind the Closed Door reply flagged for boundary violation</h3><p class="muted">Action: review reply context, hide pending decision.</p></div>
+            <div class="queue-card"><span class="queue-status status-closed">Closed</span><h3>Open Floor spam post removed</h3><p class="muted">Action: removed as manipulative promotional content.</p></div>
+          </div>
+        </div>
+        <div id="rules-tab" class="tabpane">
+          <div class="grid-2">
+            <div class="panel card"><h3>Community safety rules</h3><p class="muted">No threats, doxxing, coercion, exploitation, criminal instruction, stalking, graphic abuse bait, or targeted harassment.</p></div>
+            <div class="panel card"><h3>Moderation philosophy</h3><p class="muted">Protect honesty without protecting harm. The platform allows hard truth, not dangerous behavior.</p></div>
+          </div>
+        </div>
+        <div id="admin-tab" class="tabpane">
+          <div class="grid-2">
+            <div class="panel card"><h3>Admin starter logic</h3><p class="muted">Admin view needs queue filters, avenue sensitivity filter, report category sort, hidden/pending states, and moderator action notes.</p></div>
+            <div class="panel card"><h3>Content review logic</h3><p class="muted">Review avenue + context + identity mode + report category + prior flags, then decide keep, hide, warn, suspend, or escalate.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="deploy">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">G. Deployment package + H. Product polish</div>
+          <h3 class="main">Folder structure, launch instructions, design system, components, and GitHub packaging guidance.</h3>
+          <p class="lead">This build is intentionally shippable as a one-file demo first. The production handoff also needs a clean multi-file structure. Both are defined here without slowing the build down.</p>
+        </div>
+        <div class="grid-3">
+          <div class="panel card"><h3>Recommended folder structure</h3><p class="muted"><code>confession-bucket/</code><br><code>index.html</code><br><code>styles.css</code><br><code>script.js</code><br><code>assets/logo/</code><br><code>assets/mock/</code><br><code>README.md</code></p></div>
+          <div class="panel card"><h3>Chrome / Chromebook opening</h3><p class="muted">Save the HTML as <code>index.html</code>, double-click in Files, or open from Chrome. For GitHub Pages, paste into repo root and commit.</p></div>
+          <div class="panel card"><h3>Deployment notes</h3><p class="muted">This single-file version runs locally with no dependencies. For hosted demo use GitHub Pages, Netlify, or Cloudflare Pages.</p></div>
+          <div class="panel card"><h3>Visual design system</h3><p class="muted">Dark elegant palette, warm ember/gold highlights, high-contrast cards, rounded 18–24px radius, emotionally safe but serious tone.</p></div>
+          <div class="panel card"><h3>Typography</h3><p class="muted">Primary: Inter or system sans. Headings: bold, tight tracking. Body: readable, calm, slightly warm contrast.</p></div>
+          <div class="panel card"><h3>Component list</h3><p class="muted">Hero, avenue tiles, confession cards, reply cards, submission modal, filter pills, tabs, queue cards, FAQ accordion, safety notes.</p></div>
+        </div>
+        <div class="note" style="margin-top:18px">README summary: open locally in Chrome, or push <code>index.html</code> to GitHub and publish through GitHub Pages. This package is presentation-quality and developer-handoff ready.</div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">I. Strategic expansion layer</div>
+          <h3 class="main">Roadmap, backend stack, data model, auth outline, moderation expansion, notifications, profiles, and monetization.</h3>
+          <p class="lead">The demo is local-first. The production path is direct and realistic: avenue feeds, auth, persistent posts, moderation tooling, notifications, and profile growth. The roadmap is phased so the product remains coherent as it matures.</p>
+        </div>
+        <div class="grid-3">
+          <div class="panel card"><h3>Demo → MVP → Production roadmap</h3><p class="muted">Demo: front-end only. MVP: auth, posting, avenue feeds, replies, reporting. Production: moderation tooling, notifications, saved posts, profile growth, analytics.</p></div>
+          <div class="panel card"><h3>Suggested backend stack</h3><p class="muted">Next.js or plain frontend + Supabase/Postgres + auth + object storage + edge functions. Stripe only if memberships become necessary later.</p></div>
+          <div class="panel card"><h3>Database entities</h3><p class="muted">users, profiles, avenues, posts, replies, reactions, reports, moderation_actions, saved_posts, notifications, role_assignments.</p></div>
+          <div class="panel card"><h3>Auth logic</h3><p class="muted">Email magic link or passkey auth for named accounts. Anonymous session posting possible with tighter abuse controls and device/session throttling.</p></div>
+          <div class="panel card"><h3>Moderation expansion</h3><p class="muted">Automated sensitivity triage, queue SLAs, moderator notes, escalation workflows, avenue-specific review routing, trust scoring for repeat abuse.</p></div>
+          <div class="panel card"><h3>Notifications concept</h3><p class="muted">Reply received, avenue followed, post got support, moderation update, saved post activity, soft re-engagement for dormant users.</p></div>
+          <div class="panel card"><h3>Saved posts / bookmarks</h3><p class="muted">Users save posts, follow lounges, revisit heavy topics, and build a private relevance shelf.</p></div>
+          <div class="panel card"><h3>Profile growth concept</h3><p class="muted">Named users build a calm credibility layer through respectful replies, helpful feedback, and consistent contribution—without vanity-gaming the platform.</p></div>
+          <div class="panel card"><h3>Community health metrics</h3><p class="muted">Reply usefulness rate, report rate per avenue, repeat return by avenue, unresolved queue age, anonymous vs named balance, helpful response ratio.</p></div>
+        </div>
+        <div class="grid-2" style="margin-top:18px">
+          <div class="panel card"><h3>Monetization that does not cheapen the product</h3><p class="muted">Light, optional path only: premium saved lounge tools, private bookmarking, enhanced profile controls, or community-host subscriptions. No tacky confession monetization gimmicks.</p></div>
+          <div class="panel card"><h3>Future backend expansion note</h3><p class="muted">The front-end model already maps cleanly into a production schema. Avenue IDs, post modes, reply types, and report categories are ready to become real entities.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">FAQ</div>
+          <h3 class="main">Clear answers for review, testing, and handoff.</h3>
+          <p class="lead">This package is complete enough to review, share, open locally, test in Chrome, and hand to a developer without pretending the backend already exists.</p>
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="faq-item open"><button class="faq-q">What is complete right now?</button><div class="faq-a">The product foundation, platform architecture, avenue system, content system, interactive front-end demo, moderation concept, deployment guidance, and production roadmap are all included.</div></div>
+            <div class="faq-item"><button class="faq-q">What is still simulated?</button><div class="faq-a">Account creation, database persistence, real replies, real reporting actions, notifications, and moderator actions are still simulated in the local MVP.</div></div>
+            <div class="faq-item"><button class="faq-q">Can this be opened on Chromebook?</button><div class="faq-a">Yes. Save it as index.html and open it directly in Chrome or upload it to GitHub Pages.</div></div>
+          </div>
+          <div>
+            <div class="faq-item"><button class="faq-q">Is this fully separate from Blackshield?</button><div class="faq-a">Yes. This package is fully separate in naming, tone, structure, and visual identity.</div></div>
+            <div class="faq-item"><button class="faq-q">Why single-file first?</button><div class="faq-a">Because it makes the product instantly reviewable, shareable, and GitHub-ready with the least friction while still feeling real.</div></div>
+            <div class="faq-item"><button class="faq-q">What is the next direct build step?</button><div class="faq-a">Convert this exact UI and data model into a real app with auth, posting, replies, moderation queue persistence, and avenue-specific feeds.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
     <div class="wrap footer-grid">
       <div>
-        <div style="font-weight:900;color:var(--text);margin-bottom:6px">Konfession Bucket Front-End Demo</div>
-        <div class="small">Clickable avenues, sample confession cards, demo replies, and working filters.</div>
+        <div style="font-weight:900;color:var(--text);margin-bottom:6px">Konfession Bucket — full product package MVP demo</div>
+        <div class="small">Standalone adult confession platform demo with interactive avenues, moderation system starter, deployment notes, and production roadmap.</div>
       </div>
       <div class="small">
-        <div>Paste this into GitHub as <strong>index.html</strong>.</div>
-        <div>It is interactive front-end behavior, not backend logic.</div>
+        <div>Local launch: save as <strong>index.html</strong> and open in Chrome.</div>
+        <div>GitHub launch: paste into repo root, commit, and publish with GitHub Pages.</div>
       </div>
     </div>
-  </footer>  <script>
+  </footer>
+
+  <div class="modal" id="submitModal" aria-hidden="true">
+    <div class="panel card modal-card">
+      <div class="windowbar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><div>Submit Konfession</div></div>
+      <div class="form-grid">
+        <div class="two">
+          <div>
+            <label class="subtle">Avenue</label>
+            <select id="formAvenue"></select>
+          </div>
+          <div>
+            <label class="subtle">Identity mode</label>
+            <select id="formMode">
+              <option value="anonymous">Anonymous</option>
+              <option value="named">Named</option>
+            </select>
+          </div>
+        </div>
+        <div class="two">
+          <div>
+            <label class="subtle">Response intent</label>
+            <select id="formIntent">
+              <option value="advice">Advice</option>
+              <option value="support">Support</option>
+              <option value="shared">Shared experience</option>
+            </select>
+          </div>
+          <div>
+            <label class="subtle">Display name (named mode only)</label>
+            <input id="formName" type="text" placeholder="e.g. QuietNorth" />
+          </div>
+        </div>
+        <div>
+          <label class="subtle">Title</label>
+          <input id="formTitle" type="text" placeholder="What happened or what are you trying to understand?" />
+        </div>
+        <div>
+          <label class="subtle">Confession body</label>
+          <textarea id="formBody" placeholder="Say what needs to be said. Be direct. Stay relevant. Do not expose private identifying details if you want anonymity."></textarea>
+        </div>
+        <div class="note">Safety reminder: this demo supports adult conversation, not threats, doxxing, criminal planning, coercion, or exploitative content.</div>
+        <div class="btn-row">
+          <button class="btn primary" id="submitDemoPost">Publish Demo Post</button>
+          <button class="btn" id="closeModal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
     const avenueData = [
-      {
-        id: 'heartlines',
-        title: 'Heartlines',
-        subtitle: 'Love / relationships',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'advice',
-            title: 'I keep pulling away when things get serious.',
-            body: 'Every time a relationship starts feeling real, I start acting distant. I do not know if I am protecting myself or sabotaging something good.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Pay attention to the moment you start feeling unsafe. That usually tells you more than the relationship itself.' },
-              { type: 'support', mode: 'anonymous', text: 'A lot of people shut down when closeness gets real. You are not weird for that.' },
-              { type: 'shared', mode: 'named', text: 'I used to do this too. Mine came from expecting abandonment before it happened.' }
-            ]
-          },
-          {
-            mode: 'named',
-            tag: 'support',
-            title: 'I love my partner, but I do not feel understood anymore.',
-            body: 'Nothing dramatic happened. It just feels like we keep talking past each other and I miss feeling emotionally seen.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'That kind of loneliness in a relationship is real. It can hurt even without a scandal.' },
-              { type: 'advice', mode: 'named', text: 'Try naming one exact moment where you felt unseen instead of speaking in general frustration.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'vows-fractures',
-        title: 'Vows & Fractures',
-        subtitle: 'Marriage',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'We still live together, but it feels like the marriage left before either of us did.',
-            body: 'We function like a household. We do not function like a couple. I do not know whether to fight for it or admit it is already gone.',
-            replies: [
-              { type: 'support', mode: 'named', text: 'That in-between stage is brutal. It feels like grieving something while it is still in the room.' },
-              { type: 'advice', mode: 'anonymous', text: 'You may need one honest conversation about whether you are repairing, coasting, or ending.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'crossed-lines',
-        title: 'Crossed Lines',
-        subtitle: 'Cheating',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'advice',
-            title: 'I crossed a line I swore I would never cross.',
-            body: 'It started emotionally before it became anything else. Now I am stuck between guilt, fear, and not knowing if honesty will destroy everything.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Do not tell the story in a way that minimizes what happened just because you feel ashamed.' },
-              { type: 'shared', mode: 'anonymous', text: 'I confessed late and the delay hurt more than the act. Hiding it made me worse.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'parent-time',
-        title: 'Parent Time',
-        subtitle: 'Parenting',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'support',
-            title: 'I love my children, but I am exhausted in a way I do not know how to explain without sounding guilty.',
-            body: 'Parenting feels nonstop and I barely recognize myself outside of responsibility anymore.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'You are allowed to be tired and still be a loving parent.' },
-              { type: 'advice', mode: 'named', text: 'Try naming what kind of exhaustion this is: emotional, financial, physical, or all three.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'blood-ties',
-        title: 'Blood Ties',
-        subtitle: 'Family',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'shared',
-            title: 'Some family bonds feel more like obligations than love.',
-            body: 'I care, but being around certain relatives drains me so badly that I dread every gathering.',
-            replies: [
-              { type: 'shared', mode: 'named', text: 'Family can absolutely be heavy. Blood does not automatically create peace.' },
-              { type: 'advice', mode: 'anonymous', text: 'You may need boundaries before you need another speech.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'circle-talk',
-        title: 'Circle Talk',
-        subtitle: 'Friendship',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'advice',
-            title: 'I think I outgrew a friendship I still feel guilty leaving.',
-            body: 'We have history, but every conversation feels stuck in who we used to be instead of who we are now.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Not every ending needs a dramatic betrayal. Some people simply stop fitting.' },
-              { type: 'support', mode: 'anonymous', text: 'It is okay to acknowledge love and mismatch at the same time.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'behind-closed-door',
-        title: 'Behind the Closed Door',
-        subtitle: 'Sex / intimacy',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'I want intimacy, but shame keeps showing up before I do.',
-            body: 'Even when I trust someone, I carry embarrassment and silence into situations that are supposed to be close.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'A lot of adults carry shame into intimacy. You are not alone in that.' },
-              { type: 'advice', mode: 'named', text: 'It may help to speak about the shame before expecting ease in the moment itself.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'chains-cravings',
-        title: 'Chains & Cravings',
-        subtitle: 'Addiction',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'I keep saying I have it under control, but I know I am lying.',
-            body: 'The hardest part is not the craving. The hardest part is how normal I have made it sound to myself.',
-            replies: [
-              { type: 'support', mode: 'named', text: 'That moment of honesty matters. It is often the first real crack in denial.' },
-              { type: 'advice', mode: 'anonymous', text: 'If you keep minimizing it out loud, try writing the exact consequences privately first.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'what-i-never-said',
-        title: 'What I Never Said',
-        subtitle: 'Secrets',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'shared',
-            title: 'I have lived with one secret so long it feels welded into me.',
-            body: 'Sometimes I wonder if I am protecting people or just protecting the version of me they think they know.',
-            replies: [
-              { type: 'shared', mode: 'anonymous', text: 'Long-held secrets can start feeling like part of your spine. I get that.' },
-              { type: 'advice', mode: 'named', text: 'Figure out whether the secret is protecting safety, image, or avoidance. Those are different things.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'broken-trust',
-        title: 'Broken Trust',
-        subtitle: 'Betrayal',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'support',
-            title: 'The betrayal changed how I see everybody, not just the person who did it.',
-            body: 'I hate how one situation made me suspicious of people who did nothing wrong.',
-            replies: [
-              { type: 'support', mode: 'named', text: 'Betrayal spreads. It rarely stays neatly attached to one person.' },
-              { type: 'shared', mode: 'anonymous', text: 'Same here. My trust did not break in one place. It broke everywhere.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'undo-it',
-        title: 'If I Could Undo It',
-        subtitle: 'Regrets',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'shared',
-            title: 'I keep replaying one decision like I can still catch it before it happens.',
-            body: 'Years have passed and I still mentally return to one moment like it owes me another outcome.',
-            replies: [
-              { type: 'shared', mode: 'named', text: 'Regret can loop like a punishment ritual if you let it.' },
-              { type: 'advice', mode: 'anonymous', text: 'Try asking what you are supposed to learn from that memory instead of how to erase it.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'spiritual-lane',
-        title: 'Spiritual Lane',
-        subtitle: 'Religion / spirituality',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'advice',
-            title: 'My beliefs are shifting and I do not know how to talk about it without disappointing people.',
-            body: 'I still value faith, but some of the language I used to rely on no longer sits the same in me.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Growth in belief is still growth. It does not always look like certainty.' },
-              { type: 'support', mode: 'anonymous', text: 'A lot of people feel guilty just for questioning. That guilt is real.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'wound-room',
-        title: 'The Wound Room',
-        subtitle: 'Trauma',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'I function on the outside, but my body still reacts like the past is happening now.',
-            body: 'I am tired of looking composed while feeling ambushed by memory and sensation.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'Functioning is not the same as being untouched. That difference matters.' },
-              { type: 'shared', mode: 'named', text: 'I know that split. Calm face, chaos inside.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'clocked-out',
-        title: 'Clocked In / Checked Out',
-        subtitle: 'Work life',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'advice',
-            title: 'I am productive, but I mentally left this job months ago.',
-            body: 'I do the work, hit the deadlines, and smile in meetings, but I feel detached from everything I am building.',
-            replies: [
-              { type: 'advice', mode: 'anonymous', text: 'Sometimes burnout sounds like boredom because that is the safer word.' },
-              { type: 'support', mode: 'named', text: 'You are not lazy. You may just be drained and misaligned.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'money-pressure',
-        title: 'Money Pressure',
-        subtitle: 'Finances',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'Money stress has changed my whole personality.',
-            body: 'I am snappier, more ashamed, and constantly on edge. I hate how financial pressure leaks into everything else.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'Financial stress can make your whole nervous system feel cornered.' },
-              { type: 'advice', mode: 'named', text: 'Try separating urgent problems from ongoing worries so everything does not feel like the same emergency.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'on-the-record',
-        title: 'On the Record',
-        subtitle: 'Legal troubles',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'advice',
-            title: 'I made one decision that now follows me into everything official.',
-            body: 'I am learning how fast one mistake can change the way institutions look at you.',
-            replies: [
-              { type: 'support', mode: 'named', text: 'That kind of pressure can make every document feel heavy.' },
-              { type: 'advice', mode: 'anonymous', text: 'Stay factual, organized, and careful about who you take advice from on legal matters.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'body-burden',
-        title: 'Body & Burden',
-        subtitle: 'Health',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'support',
-            title: 'I am tired of pretending I am okay just because I still show up.',
-            body: 'Health issues make people invisible in strange ways. If you are not dramatic enough, people assume you are fine.',
-            replies: [
-              { type: 'support', mode: 'named', text: 'Yes. People often only respect pain they can clearly see.' },
-              { type: 'shared', mode: 'anonymous', text: 'Functional does not mean healthy. I learned that the hard way.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'i-am-who',
-        title: 'I Am Who',
-        subtitle: 'Identity',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'shared',
-            title: 'I am still trying to figure out who I am when nobody else is naming me.',
-            body: 'So much of my identity got shaped by roles, expectations, and reactions. I want to know what is left when I strip that away.',
-            replies: [
-              { type: 'shared', mode: 'named', text: 'That is real. Sometimes identity work starts with unlearning, not adding.' },
-              { type: 'advice', mode: 'anonymous', text: 'Pay attention to what feels true when you are alone, not just what sounds good in public.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'after-lost',
-        title: 'After the Lost',
-        subtitle: 'Grief',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'The world moved on and I did not.',
-            body: 'People stopped checking in like grief has an expiration date. Mine did not get the memo.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'Grief does not respect anybody else’s timeline.' },
-              { type: 'shared', mode: 'named', text: 'I know that loneliness. The silence after other people resume life can hurt.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'forgiveness-room',
-        title: 'The Forgiveness Room',
-        subtitle: 'Forgiveness',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'advice',
-            title: 'I do not know if I want peace or just distance.',
-            body: 'People keep talking to me about forgiveness like it is always noble, but some of me just wants separation and quiet.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Forgiveness and access are not the same thing. You can release something without reopening your door.' },
-              { type: 'support', mode: 'anonymous', text: 'You do not owe closeness just because you are trying to heal.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'evil-eye',
-        title: 'The Evil Eye',
-        subtitle: 'Jealousy',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'shared',
-            title: 'I hate admitting when someone else’s life brings something ugly up in me.',
-            body: 'It is not that I want them to lose. It is that their wins shine light on what feels missing in me.',
-            replies: [
-              { type: 'shared', mode: 'anonymous', text: 'That kind of jealousy usually points to pain, not cruelty.' },
-              { type: 'advice', mode: 'named', text: 'Sometimes envy is a loud clue about what you need to face in yourself.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'after-harm',
-        title: 'After the Harm',
-        subtitle: 'Abuse recovery',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'I escaped it, but parts of me still live there.',
-            body: 'I am out of the situation, but my thinking, reactions, and fear still feel shaped by it every day.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'Leaving the harm and healing from the harm are not the same stage.' },
-              { type: 'shared', mode: 'named', text: 'That lingering feeling is real. Safety after harm can feel strangely unfamiliar.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'heavy-mind',
-        title: 'Heavy Mind',
-        subtitle: 'Mental burden',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'support',
-            title: 'My thoughts are loud even when I look calm.',
-            body: 'I am tired of carrying a mind that does not know how to rest even when my body is sitting still.',
-            replies: [
-              { type: 'support', mode: 'named', text: 'That mental heaviness can make ordinary life feel like uphill walking.' },
-              { type: 'shared', mode: 'anonymous', text: 'I know that exact mismatch: quiet body, overloaded mind.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'how-im-living',
-        title: 'How I’m Living',
-        subtitle: 'Lifestyle choices',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'advice',
-            title: 'I built a life I thought I wanted, and now I am not sure it fits me.',
-            body: 'It is not a disaster. It just feels like I followed a blueprint that never really belonged to me.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Sometimes the real question is not “is this bad?” but “is this mine?”' },
-              { type: 'support', mode: 'anonymous', text: 'That kind of misfit can sneak up on you. It does not always arrive as crisis.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'social-conflict',
-        title: 'Social Conflict',
-        subtitle: 'Social conflict',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'advice',
-            title: 'One group conflict turned into a version of me I do not like.',
-            body: 'I got defensive, petty, and reactive in ways I did not expect. Now I am trying to separate the issue from the ego it triggered.',
-            replies: [
-              { type: 'advice', mode: 'anonymous', text: 'Group conflict can make people perform versions of themselves they do not respect later.' },
-              { type: 'shared', mode: 'named', text: 'Same. Social tension has a way of exposing unhealed pride fast.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'self-growth-lounge',
-        title: 'The Self Growth Lounge',
-        subtitle: 'Personal growth',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'shared',
-            title: 'Growth feels awkward when your old self is still clinging to you.',
-            body: 'I am changing, but not in a clean straight line. Sometimes I still sound like who I am trying to outgrow.',
-            replies: [
-              { type: 'shared', mode: 'named', text: 'Growth almost never looks polished while it is happening.' },
-              { type: 'support', mode: 'anonymous', text: 'You are allowed to be in between versions of yourself.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'right-wrong-real',
-        title: 'Right, Wrong, and Real',
-        subtitle: 'Moral dilemmas',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'advice',
-            title: 'I know what is technically right, but it still feels complicated in real life.',
-            body: 'The moral answer sounds simple from the outside. Living it inside the actual situation feels much messier.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Moral clarity gets tested by cost. That is usually where the real conflict is.' },
-              { type: 'shared', mode: 'anonymous', text: 'A lot of dilemmas are less about knowing and more about enduring what the right move costs.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'advice-lounge',
-        title: 'The Advice Lounge',
-        subtitle: 'Confessions for advice',
-        posts: [
-          {
-            mode: 'named',
-            tag: 'advice',
-            title: 'I do not need pity. I need clear outside perspective.',
-            body: 'I am too close to this situation now and I need people who can tell me the truth without dressing it up.',
-            replies: [
-              { type: 'advice', mode: 'named', text: 'Then ask the narrowest question possible. Broad pain gets broad answers.' },
-              { type: 'support', mode: 'anonymous', text: 'Fair. Sometimes support means honesty, not softness.' }
-            ]
-          }
-        ]
-      },
-      {
-        id: 'open-floor',
-        title: 'Open Floor',
-        subtitle: 'Open subject / general',
-        posts: [
-          {
-            mode: 'anonymous',
-            tag: 'shared',
-            title: 'I had nowhere specific to put this, but I needed somewhere to put it.',
-            body: 'Some truths do not fit one neat category. They still deserve a place to land.',
-            replies: [
-              { type: 'support', mode: 'anonymous', text: 'That is exactly what an open lane is for.' },
-              { type: 'shared', mode: 'named', text: 'Sometimes the truth shows up before the label does.' }
-            ]
-          }
-        ]
-      }
+      { id:'heartlines', title:'Heartlines', subtitle:'Love / relationships', purpose:'relationship confession and discussion', tone:'intimate, conflicted, reflective', sensitivity:'Medium', sampleTypes:'Commitment fear, emotional distance, attachment confusion', posts:[{mode:'anonymous',display:'Anonymous',tag:'advice',title:'I keep pulling away when things get serious.',body:'Every time a relationship starts feeling real, I start acting distant. I do not know if I am protecting myself or sabotaging something good.',reactions:['Understood','Been There','Good Advice'],replies:[{type:'advice',mode:'named',text:'Pay attention to the moment you start feeling unsafe. That usually tells you more than the relationship itself.'},{type:'support',mode:'anonymous',text:'A lot of people shut down when closeness gets real. You are not weird for that.'},{type:'shared',mode:'named',text:'I used to do this too. Mine came from expecting abandonment before it happened.'}]},{mode:'named',display:'QuietNorth',tag:'support',title:'I love my partner, but I do not feel understood anymore.',body:'Nothing dramatic happened. It just feels like we keep talking past each other and I miss feeling emotionally seen.',reactions:['Stay Strong','Understood'],replies:[{type:'support',mode:'anonymous',text:'That kind of loneliness in a relationship is real. It can hurt even without a scandal.'},{type:'advice',mode:'named',text:'Try naming one exact moment where you felt unseen instead of speaking in general frustration.'}]}]},
+      { id:'vows-fractures', title:'Vows & Fractures', subtitle:'Marriage', purpose:'marital strain, vows, fracture points', tone:'serious, intimate, weighty', sensitivity:'Medium', sampleTypes:'Emotional drift, separation tension, repair attempts', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'We still live together, but it feels like the marriage left before either of us did.',body:'We function like a household. We do not function like a couple. I do not know whether to fight for it or admit it is already gone.',reactions:['Understood','Stay Strong'],replies:[{type:'support',mode:'named',text:'That in-between stage is brutal. It feels like grieving something while it is still in the room.'},{type:'advice',mode:'anonymous',text:'You may need one honest conversation about whether you are repairing, coasting, or ending.'}]}]},
+      { id:'crossed-lines', title:'Crossed Lines', subtitle:'Cheating', purpose:'betrayal admissions and aftermath', tone:'high tension, exposed, morally pressured', sensitivity:'High', sampleTypes:'Infidelity confession, emotional cheating, disclosure fear', posts:[{mode:'anonymous',display:'Anonymous',tag:'advice',title:'I crossed a line I swore I would never cross.',body:'It started emotionally before it became anything else. Now I am stuck between guilt, fear, and not knowing if honesty will destroy everything.',reactions:['Heavy Topic','Good Advice'],replies:[{type:'advice',mode:'named',text:'Do not tell the story in a way that minimizes what happened just because you feel ashamed.'},{type:'shared',mode:'anonymous',text:'I confessed late and the delay hurt more than the act. Hiding it made me worse.'}]}]},
+      { id:'parent-time', title:'Parent Time', subtitle:'Parenting', purpose:'parenting burdens, guilt, reflection', tone:'tired, honest, caring', sensitivity:'Medium', sampleTypes:'Parental burnout, identity loss, family tension', posts:[{mode:'named',display:'AshRiver',tag:'support',title:'I love my children, but I am exhausted in a way I do not know how to explain without sounding guilty.',body:'Parenting feels nonstop and I barely recognize myself outside of responsibility anymore.',reactions:['Understood','Stay Strong'],replies:[{type:'support',mode:'anonymous',text:'You are allowed to be tired and still be a loving parent.'},{type:'advice',mode:'named',text:'Try naming what kind of exhaustion this is: emotional, financial, physical, or all three.'}]}]},
+      { id:'blood-ties', title:'Blood Ties', subtitle:'Family', purpose:'family conflict, loyalty, emotional burden', tone:'personal, tense, layered', sensitivity:'Medium', sampleTypes:'Boundary conflict, resentment, family secrets', posts:[{mode:'anonymous',display:'Anonymous',tag:'shared',title:'Some family bonds feel more like obligations than love.',body:'I care, but being around certain relatives drains me so badly that I dread every gathering.',reactions:['Been There','Understood'],replies:[{type:'shared',mode:'named',text:'Family can absolutely be heavy. Blood does not automatically create peace.'},{type:'advice',mode:'anonymous',text:'You may need boundaries before you need another speech.'}]}]},
+      { id:'circle-talk', title:'Circle Talk', subtitle:'Friendship', purpose:'friendship change and fallout', tone:'reflective, disappointed, social', sensitivity:'Low', sampleTypes:'Outgrowing friends, trust issues, social drift', posts:[{mode:'named',display:'GlassLake',tag:'advice',title:'I think I outgrew a friendship I still feel guilty leaving.',body:'We have history, but every conversation feels stuck in who we used to be instead of who we are now.',reactions:['Good Advice','Understood'],replies:[{type:'advice',mode:'named',text:'Not every ending needs a dramatic betrayal. Some people simply stop fitting.'},{type:'support',mode:'anonymous',text:'It is okay to acknowledge love and mismatch at the same time.'}]}]},
+      { id:'behind-closed-door', title:'Behind the Closed Door', subtitle:'Sex / intimacy', purpose:'adult intimacy discussions and confessions', tone:'private, vulnerable, mature', sensitivity:'High', sampleTypes:'Shame, desire conflict, trust and intimacy', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'I want intimacy, but shame keeps showing up before I do.',body:'Even when I trust someone, I carry embarrassment and silence into situations that are supposed to be close.',reactions:['Heavy Topic','Understood'],replies:[{type:'support',mode:'anonymous',text:'A lot of adults carry shame into intimacy. You are not alone in that.'},{type:'advice',mode:'named',text:'It may help to speak about the shame before expecting ease in the moment itself.'}]}]},
+      { id:'chains-cravings', title:'Chains & Cravings', subtitle:'Addiction', purpose:'substance and compulsion confession lane', tone:'heavy, raw, accountable', sensitivity:'High', sampleTypes:'Relapse fear, denial, compulsion truth', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'I keep saying I have it under control, but I know I am lying.',body:'The hardest part is not the craving. The hardest part is how normal I have made it sound to myself.',reactions:['Stay Strong','Heavy Topic'],replies:[{type:'support',mode:'named',text:'That moment of honesty matters. It is often the first real crack in denial.'},{type:'advice',mode:'anonymous',text:'If you keep minimizing it out loud, try writing the exact consequences privately first.'}]}]},
+      { id:'what-i-never-said', title:'What I Never Said', subtitle:'Secrets', purpose:'long-held secrets and hidden truths', tone:'quiet, loaded, revealing', sensitivity:'Medium', sampleTypes:'Hidden identity, family secrets, old concealment', posts:[{mode:'anonymous',display:'Anonymous',tag:'shared',title:'I have lived with one secret so long it feels welded into me.',body:'Sometimes I wonder if I am protecting people or just protecting the version of me they think they know.',reactions:['Understood','Been There'],replies:[{type:'shared',mode:'anonymous',text:'Long-held secrets can start feeling like part of your spine. I get that.'},{type:'advice',mode:'named',text:'Figure out whether the secret is protecting safety, image, or avoidance. Those are different things.'}]}]},
+      { id:'broken-trust', title:'Broken Trust', subtitle:'Betrayal', purpose:'trust damage and aftermath', tone:'hurt, suspicious, exposed', sensitivity:'High', sampleTypes:'Backstabbing, betrayal recovery, trust collapse', posts:[{mode:'named',display:'NorthAsh',tag:'support',title:'The betrayal changed how I see everybody, not just the person who did it.',body:'I hate how one situation made me suspicious of people who did nothing wrong.',reactions:['Understood','Heavy Topic'],replies:[{type:'support',mode:'named',text:'Betrayal spreads. It rarely stays neatly attached to one person.'},{type:'shared',mode:'anonymous',text:'Same here. My trust did not break in one place. It broke everywhere.'}]}]},
+      { id:'undo-it', title:'If I Could Undo It', subtitle:'Regrets', purpose:'regret processing and confession', tone:'reflective, remorseful, looping', sensitivity:'Medium', sampleTypes:'Past decisions, missed chances, moral regret', posts:[{mode:'anonymous',display:'Anonymous',tag:'shared',title:'I keep replaying one decision like I can still catch it before it happens.',body:'Years have passed and I still mentally return to one moment like it owes me another outcome.',reactions:['Been There','Understood'],replies:[{type:'shared',mode:'named',text:'Regret can loop like a punishment ritual if you let it.'},{type:'advice',mode:'anonymous',text:'Try asking what you are supposed to learn from that memory instead of how to erase it.'}]}]},
+      { id:'spiritual-lane', title:'Spiritual Lane', subtitle:'Religion / spirituality', purpose:'belief conflict and spiritual testimony', tone:'reflective, searching, sincere', sensitivity:'Medium', sampleTypes:'Faith shifts, doubt, devotion, religious conflict', posts:[{mode:'named',display:'OakVoice',tag:'advice',title:'My beliefs are shifting and I do not know how to talk about it without disappointing people.',body:'I still value faith, but some of the language I used to rely on no longer sits the same in me.',reactions:['Understood','Good Advice'],replies:[{type:'advice',mode:'named',text:'Growth in belief is still growth. It does not always look like certainty.'},{type:'support',mode:'anonymous',text:'A lot of people feel guilty just for questioning. That guilt is real.'}]}]},
+      { id:'wound-room', title:'The Wound Room', subtitle:'Trauma', purpose:'trauma confession and aftermath', tone:'careful, raw, sensitive', sensitivity:'High', sampleTypes:'Flashback burden, body memory, survival narrative', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'I function on the outside, but my body still reacts like the past is happening now.',body:'I am tired of looking composed while feeling ambushed by memory and sensation.',reactions:['Heavy Topic','Stay Strong'],replies:[{type:'support',mode:'anonymous',text:'Functioning is not the same as being untouched. That difference matters.'},{type:'shared',mode:'named',text:'I know that split. Calm face, chaos inside.'}]}]},
+      { id:'clocked-out', title:'Clocked In / Checked Out', subtitle:'Work life', purpose:'work fatigue and career truth', tone:'drained, pragmatic, direct', sensitivity:'Low', sampleTypes:'Burnout, career detachment, workplace identity', posts:[{mode:'named',display:'GrayWest',tag:'advice',title:'I am productive, but I mentally left this job months ago.',body:'I do the work, hit the deadlines, and smile in meetings, but I feel detached from everything I am building.',reactions:['Understood','Good Advice'],replies:[{type:'advice',mode:'anonymous',text:'Sometimes burnout sounds like boredom because that is the safer word.'},{type:'support',mode:'named',text:'You are not lazy. You may just be drained and misaligned.'}]}]},
+      { id:'money-pressure', title:'Money Pressure', subtitle:'Finances', purpose:'financial burden and pressure', tone:'tense, practical, vulnerable', sensitivity:'Medium', sampleTypes:'Debt stress, shame, money conflict', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'Money stress has changed my whole personality.',body:'I am snappier, more ashamed, and constantly on edge. I hate how financial pressure leaks into everything else.',reactions:['Understood','Stay Strong'],replies:[{type:'support',mode:'anonymous',text:'Financial stress can make your whole nervous system feel cornered.'},{type:'advice',mode:'named',text:'Try separating urgent problems from ongoing worries so everything does not feel like the same emergency.'}]}]},
+      { id:'on-the-record', title:'On the Record', subtitle:'Legal troubles', purpose:'legal and official burden lane', tone:'serious, careful, high-stakes', sensitivity:'High', sampleTypes:'Case stress, paperwork burden, institutional pressure', posts:[{mode:'anonymous',display:'Anonymous',tag:'advice',title:'I made one decision that now follows me into everything official.',body:'I am learning how fast one mistake can change the way institutions look at you.',reactions:['Heavy Topic','Understood'],replies:[{type:'support',mode:'named',text:'That kind of pressure can make every document feel heavy.'},{type:'advice',mode:'anonymous',text:'Stay factual, organized, and careful about who you take advice from on legal matters.'}]}]},
+      { id:'body-burden', title:'Body & Burden', subtitle:'Health', purpose:'health realities and burden sharing', tone:'tired, honest, physical', sensitivity:'Medium', sampleTypes:'Invisible illness, chronic fatigue, diagnosis weight', posts:[{mode:'named',display:'MapleField',tag:'support',title:'I am tired of pretending I am okay just because I still show up.',body:'Health issues make people invisible in strange ways. If you are not dramatic enough, people assume you are fine.',reactions:['Understood','Been There'],replies:[{type:'support',mode:'named',text:'Yes. People often only respect pain they can clearly see.'},{type:'shared',mode:'anonymous',text:'Functional does not mean healthy. I learned that the hard way.'}]}]},
+      { id:'i-am-who', title:'I Am Who', subtitle:'Identity', purpose:'identity exploration and confession', tone:'searching, personal, layered', sensitivity:'Medium', sampleTypes:'Self-definition, role conflict, identity rebuild', posts:[{mode:'anonymous',display:'Anonymous',tag:'shared',title:'I am still trying to figure out who I am when nobody else is naming me.',body:'So much of my identity got shaped by roles, expectations, and reactions. I want to know what is left when I strip that away.',reactions:['Been There','Understood'],replies:[{type:'shared',mode:'named',text:'That is real. Sometimes identity work starts with unlearning, not adding.'},{type:'advice',mode:'anonymous',text:'Pay attention to what feels true when you are alone, not just what sounds good in public.'}]}]},
+      { id:'after-lost', title:'After the Loss', subtitle:'Grief', purpose:'grief, mourning, after-loss truth', tone:'tender, heavy, slow', sensitivity:'High', sampleTypes:'Lingering grief, disenfranchised grief, memory burden', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'The world moved on and I did not.',body:'People stopped checking in like grief has an expiration date. Mine did not get the memo.',reactions:['Stay Strong','Understood'],replies:[{type:'support',mode:'anonymous',text:'Grief does not respect anybody else’s timeline.'},{type:'shared',mode:'named',text:'I know that loneliness. The silence after other people resume life can hurt.'}]}]},
+      { id:'forgiveness-room', title:'The Forgiveness Room', subtitle:'Forgiveness', purpose:'forgiveness conflict and release', tone:'thoughtful, conflicted, guarded', sensitivity:'Medium', sampleTypes:'Boundary after harm, release without reunion, resentment work', posts:[{mode:'named',display:'SlateMoon',tag:'advice',title:'I do not know if I want peace or just distance.',body:'People keep talking to me about forgiveness like it is always noble, but some of me just wants separation and quiet.',reactions:['Good Advice','Understood'],replies:[{type:'advice',mode:'named',text:'Forgiveness and access are not the same thing. You can release something without reopening your door.'},{type:'support',mode:'anonymous',text:'You do not owe closeness just because you are trying to heal.'}]}]},
+      { id:'evil-eye', title:'The Evil Eye', subtitle:'Jealousy', purpose:'jealousy and envy confession lane', tone:'self-exposing, tense, revealing', sensitivity:'Medium', sampleTypes:'Comparison pain, envy, resentment', posts:[{mode:'anonymous',display:'Anonymous',tag:'shared',title:'I hate admitting when someone else’s life brings something ugly up in me.',body:'It is not that I want them to lose. It is that their wins shine light on what feels missing in me.',reactions:['Understood','Been There'],replies:[{type:'shared',mode:'anonymous',text:'That kind of jealousy usually points to pain, not cruelty.'},{type:'advice',mode:'named',text:'Sometimes envy is a loud clue about what you need to face in yourself.'}]}]},
+      { id:'after-harm', title:'After the Harm', subtitle:'Abuse recovery', purpose:'post-abuse recovery and truth', tone:'careful, protective, serious', sensitivity:'High', sampleTypes:'Recovery truth, lingering fear, control aftermath', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'I escaped it, but parts of me still live there.',body:'I am out of the situation, but my thinking, reactions, and fear still feel shaped by it every day.',reactions:['Heavy Topic','Stay Strong'],replies:[{type:'support',mode:'anonymous',text:'Leaving the harm and healing from the harm are not the same stage.'},{type:'shared',mode:'named',text:'That lingering feeling is real. Safety after harm can feel strangely unfamiliar.'}]}]},
+      { id:'heavy-mind', title:'Heavy Mind', subtitle:'Mental burden', purpose:'mental load and thought burden lane', tone:'weighted, inward, honest', sensitivity:'High', sampleTypes:'Overthinking, intrusive heaviness, mental fatigue', posts:[{mode:'anonymous',display:'Anonymous',tag:'support',title:'My thoughts are loud even when I look calm.',body:'I am tired of carrying a mind that does not know how to rest even when my body is sitting still.',reactions:['Understood','Stay Strong'],replies:[{type:'support',mode:'named',text:'That mental heaviness can make ordinary life feel like uphill walking.'},{type:'shared',mode:'anonymous',text:'I know that exact mismatch: quiet body, overloaded mind.'}]}]},
+      { id:'how-im-living', title:'How I’m Living', subtitle:'Lifestyle choices', purpose:'life choices and private tension lane', tone:'reflective, practical, self-auditing', sensitivity:'Low', sampleTypes:'Life fit, routine drift, value mismatch', posts:[{mode:'named',display:'NorthKite',tag:'advice',title:'I built a life I thought I wanted, and now I am not sure it fits me.',body:'It is not a disaster. It just feels like I followed a blueprint that never really belonged to me.',reactions:['Good Advice','Understood'],replies:[{type:'advice',mode:'named',text:'Sometimes the real question is not “is this bad?” but “is this mine?”'},{type:'support',mode:'anonymous',text:'That kind of misfit can sneak up on you. It does not always arrive as crisis.'}]}]},
+      { id:'social-conflict', title:'Social Conflict', subtitle:'Social conflict', purpose:'group tension and social fallout', tone:'charged, exposed, interpersonal', sensitivity:'Medium', sampleTypes:'Friend group rupture, public fallout, social backlash', posts:[{mode:'anonymous',display:'Anonymous',tag:'advice',title:'One group conflict turned into a version of me I do not like.',body:'I got defensive, petty, and reactive in ways I did not expect. Now I am trying to separate the issue from the ego it triggered.',reactions:['Understood','Good Advice'],replies:[{type:'advice',mode:'anonymous',text:'Group conflict can make people perform versions of themselves they do not respect later.'},{type:'shared',mode:'named',text:'Same. Social tension has a way of exposing unhealed pride fast.'}]}]},
+      { id:'self-growth-lounge', title:'The Self Growth Lounge', subtitle:'Personal growth', purpose:'growth tracking and honest self-change lane', tone:'reflective, forward, honest', sensitivity:'Low', sampleTypes:'Self-work, growth discomfort, transition confession', posts:[{mode:'named',display:'GlassHollow',tag:'shared',title:'Growth feels awkward when your old self is still clinging to you.',body:'I am changing, but not in a clean straight line. Sometimes I still sound like who I am trying to outgrow.',reactions:['Been There','Stay Strong'],replies:[{type:'shared',mode:'named',text:'Growth almost never looks polished while it is happening.'},{type:'support',mode:'anonymous',text:'You are allowed to be in between versions of yourself.'}]}]},
+      { id:'right-wrong-real', title:'Right, Wrong, and Real', subtitle:'Moral dilemmas', purpose:'moral conflict and ethical tension lane', tone:'serious, analytical, conflicted', sensitivity:'Medium', sampleTypes:'Complicated choices, ethical pressure, conscience conflict', posts:[{mode:'anonymous',display:'Anonymous',tag:'advice',title:'I know what is technically right, but it still feels complicated in real life.',body:'The moral answer sounds simple from the outside. Living it inside the actual situation feels much messier.',reactions:['Good Advice','Heavy Topic'],replies:[{type:'advice',mode:'named',text:'Moral clarity gets tested by cost. That is usually where the real conflict is.'},{type:'shared',mode:'anonymous',text:'A lot of dilemmas are less about knowing and more about enduring what the right move costs.'}]}]},
+      { id:'advice-lounge', title:'The Advice Lounge', subtitle:'Confessions for advice', purpose:'explicit help-seeking lane', tone:'direct, pragmatic, clear', sensitivity:'Low', sampleTypes:'Decision help, outside perspective, next-step questions', posts:[{mode:'named',display:'QuietFrame',tag:'advice',title:'I do not need pity. I need clear outside perspective.',body:'I am too close to this situation now and I need people who can tell me the truth without dressing it up.',reactions:['Good Advice','Understood'],replies:[{type:'advice',mode:'named',text:'Then ask the narrowest question possible. Broad pain gets broad answers.'},{type:'support',mode:'anonymous',text:'Fair. Sometimes support means honesty, not softness.'}]}]},
+      { id:'open-floor', title:'Open Floor', subtitle:'Open subject / general', purpose:'general confession lane for uncategorized truths', tone:'open, mixed, flexible', sensitivity:'Low', sampleTypes:'Mixed confession, uncategorized burden, general life truth', posts:[{mode:'anonymous',display:'Anonymous',tag:'shared',title:'I had nowhere specific to put this, but I needed somewhere to put it.',body:'Some truths do not fit one neat category. They still deserve a place to land.',reactions:['Understood','Been There'],replies:[{type:'support',mode:'anonymous',text:'That is exactly what an open lane is for.'},{type:'shared',mode:'named',text:'Sometimes the truth shows up before the label does.'}]}]}
     ];
 
     const subjectGrid = document.getElementById('subjectGrid');
     const postsContainer = document.getElementById('postsContainer');
     const activeSubjectTitle = document.getElementById('activeSubjectTitle');
     const activeSubjectDesc = document.getElementById('activeSubjectDesc');
+    const activeSensitivity = document.getElementById('activeSensitivity');
+    const activePurpose = document.getElementById('activePurpose');
+    const activeTone = document.getElementById('activeTone');
+    const activeSamples = document.getElementById('activeSamples');
     const filters = document.getElementById('filters');
+    const searchInput = document.getElementById('searchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const emptyState = document.getElementById('emptyState');
+    const submitModal = document.getElementById('submitModal');
+    const formAvenue = document.getElementById('formAvenue');
+    const formMode = document.getElementById('formMode');
+    const formIntent = document.getElementById('formIntent');
+    const formName = document.getElementById('formName');
+    const formTitle = document.getElementById('formTitle');
+    const formBody = document.getElementById('formBody');
 
     let activeSubject = avenueData[0];
     let activeFilter = 'all';
+    let customPosts = [];
+
+    function initFormOptions() {
+      avenueData.forEach(subject => {
+        const option = document.createElement('option');
+        option.value = subject.id;
+        option.textContent = subject.title;
+        formAvenue.appendChild(option);
+      });
+    }
 
     function renderSubjects() {
       subjectGrid.innerHTML = '';
@@ -805,12 +588,31 @@
           activeSubject = subject;
           renderSubjects();
           renderActiveSubject();
+          document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         subjectGrid.appendChild(btn);
       });
     }
 
-    function matchFilter(post, reply) {
+    function getSubjectPosts(subject) {
+      const added = customPosts.filter(post => post.subjectId === subject.id);
+      return [...added, ...subject.posts];
+    }
+
+    function matchesSearch(post) {
+      const term = searchInput.value.trim().toLowerCase();
+      if (!term) return true;
+      const replyText = post.replies.map(r => r.text).join(' ').toLowerCase();
+      return (
+        post.title.toLowerCase().includes(term) ||
+        post.body.toLowerCase().includes(term) ||
+        activeSubject.title.toLowerCase().includes(term) ||
+        activeSubject.subtitle.toLowerCase().includes(term) ||
+        replyText.includes(term)
+      );
+    }
+
+    function matchesFilter(post, reply) {
       if (activeFilter === 'all') return true;
       if (activeFilter === 'anonymous') return reply ? reply.mode === 'anonymous' : post.mode === 'anonymous';
       if (activeFilter === 'named') return reply ? reply.mode === 'named' : post.mode === 'named';
@@ -820,15 +622,47 @@
       return true;
     }
 
+    function sortPosts(posts) {
+      const sorted = [...posts];
+      switch (sortSelect.value) {
+        case 'anonymous':
+          sorted.sort((a,b) => (a.mode === 'anonymous' ? -1 : 1) - (b.mode === 'anonymous' ? -1 : 1));
+          break;
+        case 'named':
+          sorted.sort((a,b) => (a.mode === 'named' ? -1 : 1) - (b.mode === 'named' ? -1 : 1));
+          break;
+        case 'advice':
+          sorted.sort((a,b) => (a.tag === 'advice' ? -1 : 1) - (b.tag === 'advice' ? -1 : 1));
+          break;
+        default:
+          break;
+      }
+      return sorted;
+    }
+
     function renderActiveSubject() {
       activeSubjectTitle.textContent = activeSubject.title;
       activeSubjectDesc.textContent = activeSubject.subtitle;
+      activeSensitivity.textContent = `Sensitivity: ${activeSubject.sensitivity}`;
+      activePurpose.textContent = `Purpose: ${activeSubject.purpose}`;
+      activeTone.textContent = `Tone: ${activeSubject.tone}`;
+      activeSamples.textContent = `Sample confession types: ${activeSubject.sampleTypes}.`;
+
+      let posts = getSubjectPosts(activeSubject).filter(matchesSearch).filter(post => {
+        if (activeFilter === 'all') return true;
+        return matchesFilter(post, null) || post.replies.some(reply => matchesFilter(post, reply));
+      });
+
+      posts = sortPosts(posts);
       postsContainer.innerHTML = '';
 
-      activeSubject.posts.forEach(post => {
-        const postVisible = activeFilter === 'all' || matchFilter(post, null) || post.replies.some(reply => matchFilter(post, reply));
-        if (!postVisible) return;
+      if (!posts.length) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
 
+      posts.forEach(post => {
         const postCard = document.createElement('div');
         postCard.className = 'post-card';
 
@@ -838,19 +672,25 @@
           return reply.type === activeFilter;
         });
 
+        const shownReplies = filteredReplies.length ? filteredReplies : post.replies;
+
         postCard.innerHTML = `
           <div class="post-head">
-            <div>
-              <div class="badge-row">
-                <span class="badge">${post.tag}</span>
-                <span class="badge alt">${post.mode}</span>
-              </div>
+            <div class="badge-row">
+              <span class="badge">${post.tag}</span>
+              <span class="badge alt">${post.mode}</span>
+              ${post.custom ? '<span class="badge good">new demo post</span>' : ''}
             </div>
+            <div class="subtle">${post.display}</div>
           </div>
           <div class="post-title">${post.title}</div>
           <div class="post-copy">${post.body}</div>
+          <div class="support-row">
+            ${(post.reactions || ['Understood','Good Advice']).map(item => `<span class="support-pill">${item}</span>`).join('')}
+            <span class="support-pill">Report</span>
+          </div>
           <div class="reply-list">
-            ${(filteredReplies.length ? filteredReplies : post.replies).map(reply => `
+            ${shownReplies.map(reply => `
               <div class="reply-card">
                 <div class="reply-top">
                   <span class="reply-type">${reply.type}</span>
@@ -861,7 +701,6 @@
             `).join('')}
           </div>
         `;
-
         postsContainer.appendChild(postCard);
       });
     }
@@ -875,12 +714,86 @@
       });
     });
 
+    searchInput.addEventListener('input', renderActiveSubject);
+    sortSelect.addEventListener('change', renderActiveSubject);
+
     document.querySelectorAll('.faq-q').forEach(q => {
       q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
     });
 
+    document.querySelectorAll('.tabbtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.parentElement;
+        const section = parent.parentElement;
+        const target = btn.dataset.tab;
+        parent.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        section.querySelectorAll('.tabpane').forEach(p => p.classList.remove('active'));
+        const pane = section.querySelector('#' + target);
+        if (pane) pane.classList.add('active');
+      });
+    });
+
+    function openModal() {
+      submitModal.classList.add('open');
+      submitModal.setAttribute('aria-hidden', 'false');
+      formAvenue.value = activeSubject.id;
+    }
+
+    function closeModal() {
+      submitModal.classList.remove('open');
+      submitModal.setAttribute('aria-hidden', 'true');
+    }
+
+    document.getElementById('openSubmitTop').addEventListener('click', openModal);
+    document.getElementById('openSubmitMiddle').addEventListener('click', openModal);
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    submitModal.addEventListener('click', (e) => {
+      if (e.target === submitModal) closeModal();
+    });
+
+    document.getElementById('jumpFeed').addEventListener('click', () => {
+      document.getElementById('feedTop').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.getElementById('submitDemoPost').addEventListener('click', () => {
+      const subjectId = formAvenue.value;
+      const mode = formMode.value;
+      const tag = formIntent.value;
+      const title = formTitle.value.trim();
+      const body = formBody.value.trim();
+      const name = formName.value.trim();
+
+      if (!title || !body) return;
+
+      customPosts.unshift({
+        subjectId,
+        mode,
+        display: mode === 'anonymous' ? 'Anonymous' : (name || 'NamedVoice'),
+        tag,
+        title,
+        body,
+        custom: true,
+        reactions: ['Understood','Fresh Post'],
+        replies: [
+          { type: tag, mode: 'named', text: 'Demo reply preview: this is where real community engagement would begin once backend is live.' },
+          { type: 'support', mode: 'anonymous', text: 'Demo support preview: the platform can immediately show how the post would feel inside a live thread.' }
+        ]
+      });
+
+      activeSubject = avenueData.find(s => s.id === subjectId) || activeSubject;
+      renderSubjects();
+      renderActiveSubject();
+      closeModal();
+      formTitle.value = '';
+      formBody.value = '';
+      formName.value = '';
+      document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    initFormOptions();
     renderSubjects();
     renderActiveSubject();
-  </script></body>
+  </script>
+</body>
 </html>
-```</final>
